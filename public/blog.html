@@ -556,7 +556,7 @@
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
                         const postId = link.getAttribute('data-post-id');
-                        openPost(postId);
+                        window.location.href = `post.html?id=${encodeURIComponent(postId)}`;
                     });
                 });
             } catch (error) {
@@ -596,38 +596,7 @@
         });
 
         async function openPost(postId) {
-            try {
-                const response = await fetch(`${API_BASE_URL}/posts/${postId}`);
-                const post = await response.json();
-                
-                const modalBody = document.getElementById('modalBody');
-                const imageHtml = post.image_url ? `<img src="${escapeHtml(post.image_url)}" alt="${escapeHtml(post.title)}" style="max-width: 100%; max-height: 50vh; height: auto; object-fit: contain; border-radius: 12px; margin-bottom: 24px;">` : '';
-                
-                modalBody.innerHTML = `
-                    ${imageHtml}
-                    <div style="margin-bottom: 24px;">
-                        <span style="background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem;">${escapeHtml(post.category)}</span>
-                        <span style="margin-left: 12px; color: var(--text-light);"><i class="fas fa-calendar"></i> ${post.date}</span>
-                        <span style="margin-left: 12px; color: var(--text-light);"><i class="fas fa-eye"></i> ${post.views || 0} просмотров</span>
-                    </div>
-                    <h1 style="color: var(--primary); margin-bottom: 8px;">${escapeHtml(post.title)}</h1>
-                    <div style="color: var(--text-dark); white-space: pre-wrap; word-wrap: break-word;">
-                        ${formatContent(post.content)}
-                    </div>
-                `;
-                
-                document.getElementById('postModal').classList.add('active');
-                document.body.style.overflow = 'hidden';
-                
-                // Обновляем просмотры в текущем списке
-                const currentPost = currentPosts.find(p => p.id == postId);
-                if (currentPost) {
-                    currentPost.views = (currentPost.views || 0) + 1;
-                }
-            } catch (error) {
-                console.error('Error opening post:', error);
-                alert('Ошибка загрузки поста');
-            }
+            window.location.href = `post.html?id=${encodeURIComponent(postId)}`;
         }
         
         // Modal functionality

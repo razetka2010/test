@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новость | Знание Севера</title>
+    <meta name="description" content="Статья и новости корпорации Знание Севера">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --article-bg: #f5f7fb;
+            --article-card: #ffffff;
+            --article-border: #e3e8f0;
+            --article-text: #1f2937;
+            --article-muted: #667085;
+        }
+
+        body {
+            background: var(--article-bg);
+        }
+
+        .article-page {
+            padding: 120px 0 80px;
+            min-height: 100vh;
+        }
+
+        .article-shell {
+            max-width: 980px;
+            margin: 0 auto;
+            background: var(--article-card);
+            border: 1px solid var(--article-border);
+            border-radius: 28px;
+            box-shadow: 0 20px 60px rgba(17, 24, 39, 0.08);
+            overflow: hidden;
+        }
+
+        .article-hero {
+            position: relative;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            padding: 48px 48px 0;
+            color: var(--white);
+        }
+
+        .article-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .article-back:hover {
+            opacity: 1;
+        }
+
+        .article-header {
+            padding-bottom: 24px;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 18px;
+            margin-bottom: 18px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .article-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .article-title {
+            font-size: clamp(2rem, 3vw, 3rem);
+            line-height: 1.2;
+            margin: 0;
+            color: var(--white);
+        }
+
+        .article-image-wrap {
+            padding: 0 48px 24px;
+            margin-top: -18px;
+            background: linear-gradient(180deg, rgba(15, 75, 130, 0.95) 0%, rgba(15, 75, 130, 0) 42%);
+        }
+
+        .article-image {
+            width: 100%;
+            max-height: 560px;
+            object-fit: cover;
+            border-radius: 22px;
+            display: block;
+            background: #dfeaf7;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
+        }
+
+        .article-body {
+            padding: 0 48px 56px;
+            color: var(--article-text);
+        }
+
+        .article-category {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--white);
+            padding: 7px 14px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        .article-text {
+            font-size: 1.07rem;
+            line-height: 1.8;
+            color: var(--article-text);
+            word-wrap: break-word;
+        }
+
+        .article-text > div {
+            margin: 0 0 18px;
+        }
+
+        .article-text a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .article-text ul,
+        .article-text ol {
+            margin: 16px 0 20px 22px;
+            padding-left: 18px;
+        }
+
+        .article-text li {
+            margin: 8px 0;
+        }
+
+        .article-empty {
+            max-width: 760px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .article-page {
+                padding-top: 100px;
+            }
+
+            .article-hero,
+            .article-image-wrap,
+            .article-body {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .article-shell {
+                border-radius: 18px;
+            }
+
+            .article-image-wrap {
+                margin-top: 0;
+                padding-bottom: 18px;
+            }
+
+            .article-image {
+                border-radius: 14px;
+            }
+
+            .article-body {
+                padding-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <i class="fas fa-snowflake"></i>
+                <span>Знание Севера</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="about.html" class="nav-link">Наша история</a></li>
+                <li><a href="documents.html" class="nav-link">Документы</a></li>
+                <li><a href="blog.html" class="nav-link active">Блог</a></li>
+                <li><a href="careers.html" class="nav-link">Вакансии</a></li>
+                <li><a href="index.html#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="article-page">
+        <div class="container">
+            <div id="articleContent" class="article-shell">
+                <div class="article-empty">
+                    <i class="fas fa-spinner fa-spin" style="font-size:2rem; margin-bottom:16px; display:block; color: var(--accent);"></i>
+                    <p>Загрузка статьи...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-snowflake"></i>
+                    <span>Знание Севера</span>
+                    <p>Корпорация цифровых решений</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Главная</a>
+                    <a href="about.html">Наша история</a>
+                    <a href="blog.html">Блог</a>
+                    <a href="careers.html">Вакансии</a>
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="index.html#contacts">Контакты</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://t.me/znaniesevera" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://github.com/razetka2010" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://max.ru/join/KHFb5Aag3aTWi6CZS0D8jM13bFWcXrLOsq0SSWn_Gzg" target="_blank"><i class="fas fa-rocket"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Корпорация «Знание Севера». Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="config.js"></script>
+    <script>
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatContent(text) {
+            if (!text) return '<div>Текст отсутствует.</div>';
+
+            const lines = text.split('\n');
+            let html = '';
+            let lastWasEmpty = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trim();
+
+                if (!line) {
+                    if (!lastWasEmpty) {
+                        html += '<div style="height: 12px;"></div>';
+                        lastWasEmpty = true;
+                    }
+                } else if (line.startsWith('•') || line.startsWith('-') || /^\d+\./.test(line)) {
+                    const item = line.replace(/^[•\-\d.\s]+/, '');
+                    html += `<div style="margin: 8px 0 8px 20px; line-height:1.7;">• ${escapeHtml(item)}</div>`;
+                    lastWasEmpty = false;
+                } else if (/^https?:\/\//.test(line)) {
+                    html += `<div style="margin: 10px 0; line-height: 1.7;"><a href="${escapeHtml(line)}" target="_blank" rel="noopener noreferrer">${escapeHtml(line)}</a></div>`;
+                    lastWasEmpty = false;
+                } else {
+                    html += `<div style="margin: 8px 0; line-height: 1.8;">${escapeHtml(line)}</div>`;
+                    lastWasEmpty = false;
+                }
+            }
+
+            return html;
+        }
+
+        async function loadPost() {
+            const params = new URLSearchParams(window.location.search);
+            const postId = params.get('id');
+            const container = document.getElementById('articleContent');
+
+            if (!postId) {
+                container.innerHTML = `
+                    <div class="article-empty">
+                        <h2>Статья не найдена</h2>
+                        <p>Не указан идентификатор новости.</p>
+                        <a href="blog.html" class="btn btn-primary">Вернуться в блог</a>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts/${postId}`);
+                if (!response.ok) {
+                    throw new Error('Post not found');
+                }
+
+                const post = await response.json();
+
+                document.title = `${escapeHtml(post.title)} | Знание Севера`;
+                const metaDescription = document.querySelector('meta[name="description"]');
+                if (metaDescription) {
+                    metaDescription.setAttribute('content', post.excerpt || post.title);
+                }
+
+                container.innerHTML = `
+                    <article class="article-shell">
+                        <div class="article-hero">
+                            <a href="blog.html" class="article-back"><i class="fas fa-arrow-left"></i> Назад к блогу</a>
+                            <div class="article-header">
+                                <div class="article-meta">
+                                    <span><i class="fas fa-calendar"></i> ${escapeHtml(post.date || '')}</span>
+                                    <span><i class="fas fa-eye"></i> ${post.views || 0} просмотров</span>
+                                </div>
+                                <h1 class="article-title">${escapeHtml(post.title)}</h1>
+                            </div>
+                        </div>
+                        <div class="article-image-wrap">
+                            ${post.image_url ? `<img class="article-image" src="${escapeHtml(post.image_url)}" alt="${escapeHtml(post.title)}">` : '<div style="height: 280px; border-radius: 22px; background: linear-gradient(135deg, var(--ice) 0%, var(--ice-dark) 100%); display:flex; align-items:center; justify-content:center; color: var(--accent); font-size: 4rem;"><i class="fas fa-newspaper"></i></div>'}
+                        </div>
+                        <div class="article-body">
+                            <span class="article-category">${escapeHtml(post.category || 'Новости')}</span>
+                            <div class="article-text">${formatContent(post.content)}</div>
+                        </div>
+                    </article>
+                `;
+            } catch (error) {
+                console.error('Error loading post:', error);
+                container.innerHTML = `
+                    <div class="article-empty">
+                        <h2>Статья не найдена</h2>
+                        <p>Запрошенная новость не существует или временно недоступна.</p>
+                        <a href="blog.html" class="btn btn-primary">Вернуться в блог</a>
+                    </div>
+                `;
+            }
+        }
+
+        loadPost();
+    </script>
+</body>
+</html>
