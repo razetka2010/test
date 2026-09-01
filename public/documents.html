@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Документы Знание Севера — технические задания, методические материалы, инструкции">
+    <meta name="keywords" content="документы, ТЗ, технические задания, инструкции">
+    <meta name="author" content="Знание Севера">
+    <title>Документы | Знание Севера</title>
+    <meta property="og:title" content="Документы | Знание Севера">
+    <meta property="og:description" content="Технические задания, методические материалы и инструкции корпорации «Знание Севера».">
+    <meta property="og:image" content="https://znaniesevera.vercel.app/og-image.jpg">
+    <meta property="og:url" content="https://znaniesevera.vercel.app/documents.html">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://znaniesevera.vercel.app/documents.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <i class="fas fa-snowflake"></i>
+                <span>Знание Севера</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="about.html" class="nav-link">Наша история</a></li>
+                <li><a href="documents.html" class="nav-link active">Документы</a></li>
+                <li><a href="blog.html" class="nav-link">Блог</a></li>
+                <li><a href="careers.html" class="nav-link">Вакансии</a></li>
+                <li><a href="index.html#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Title -->
+        <div class="doc-page-header">
+            <div class="container">
+                <h1 class="doc-page-title">Документы</h1>
+                <p class="doc-page-desc">Технические задания, методические материалы и инструкции корпорации «Знание Севера»</p>
+            </div>
+        </div>
+
+        <!-- Documents Section -->
+        <section class="doc-section">
+            <div class="container">
+                <div class="doc-layout">
+                    <!-- Sidebar -->
+                    <aside class="doc-sidebar">
+                        <div class="doc-sidebar-block">
+                            <h3 class="doc-sidebar-title">Категории</h3>
+                            <ul class="doc-categories">
+                                <li><button class="doc-cat-btn active" data-category="all">Все документы</button></li>
+                                <li><button class="doc-cat-btn" data-category="tech-spec">Технические задания</button></li>
+                                <li><button class="doc-cat-btn" data-category="methodology">Методические материалы</button></li>
+                                <li><button class="doc-cat-btn" data-category="guides">Инструкции</button></li>
+                                <li><button class="doc-cat-btn" data-category="report">Отчёты</button></li>
+                                <li><button class="doc-cat-btn" data-category="presentation">Презентации</button></li>
+                                <li><button class="doc-cat-btn" data-category="certificate">Сертификаты</button></li>
+                                <li><button class="doc-cat-btn" data-category="manual">Руководства</button></li>
+                                <li><button class="doc-cat-btn" data-category="template">Шаблоны</button></li>
+                                <li><button class="doc-cat-btn" data-category="standard">Стандарты</button></li>
+                                <li><button class="doc-cat-btn" data-category="order">Приказы</button></li>
+                                <li><button class="doc-cat-btn" data-category="protocol">Протоколы</button></li>
+                                <li><button class="doc-cat-btn" data-category="other">Другое</button></li>
+                            </ul>
+                        </div>
+
+                        <div class="doc-sidebar-block">
+                            <h3 class="doc-sidebar-title">Поиск</h3>
+                            <div class="doc-sidebar-search">
+                                <input type="text" id="searchInput" placeholder="Поиск по названию...">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <label for="documentSort" style="display:block;margin-top:16px;font-size:0.85rem;color:var(--text-light);">Сортировка</label>
+                            <select id="documentSort" style="width:100%;margin-top:6px;padding:10px;border:1px solid var(--gray);border-radius:8px;font:inherit;">
+                                <option value="newest">Сначала новые</option>
+                                <option value="oldest">Сначала старые</option>
+                                <option value="title">По названию</option>
+                            </select>
+                        </div>
+                    </aside>
+
+                    <!-- Main Content -->
+                    <div class="doc-content">
+                        <!-- Results info -->
+                        <div class="doc-results-header">
+                            <span class="doc-results-count" id="resultsCount">Загрузка...</span>
+                        </div>
+
+                        <!-- Documents List -->
+                        <div class="doc-list" id="documentsList">
+                            <div class="doc-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span>Загрузка документов...</span>
+                            </div>
+                        </div>
+
+                        <!-- No Results -->
+                        <div class="doc-no-results" id="noResults" style="display:none">
+                            <i class="fas fa-file-alt"></i>
+                            <h3>Документы не найдены</h3>
+                            <p>Попробуйте изменить фильтр или поисковый запрос</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-snowflake"></i>
+                    <span>Знание Севера</span>
+                    <p>Корпорация цифровых решений</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Главная</a>
+                    <a href="about.html">Наша история</a>
+                    <a href="blog.html">Блог</a>
+                    <a href="careers.html">Вакансии</a>
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="index.html#contacts">Контакты</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://t.me/znaniesevera" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://github.com/razetka2010" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://max.ru/join/KHFb5Aag3aTWi6CZS0D8jM13bFWcXrLOsq0SSWn_Gzg" target="_blank"><i class="fas fa-rocket"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Корпорация «Знание Севера». Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Главная",
+                    "item": "https://znaniesevera.vercel.app/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Документы",
+                    "item": "https://znaniesevera.vercel.app/documents.html"
+                }
+            ]
+        }
+    </script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

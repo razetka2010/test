@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Вакансии Знание Севера — открытые позиции и возможность присоединиться к команде">
+    <meta name="keywords" content="вакансии, работа, карьера, Знание Севера">
+    <meta name="author" content="Знание Севера">
+    <title>Вакансии | Знание Севера</title>
+    <meta property="og:title" content="Вакансии | Знание Севера">
+    <meta property="og:description" content="Открытые вакансии и возможности присоединиться к команде «Знание Севера».">
+    <meta property="og:image" content="https://znaniesevera.vercel.app/og-image.jpg">
+    <meta property="og:url" content="https://znaniesevera.vercel.app/careers.html">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://znaniesevera.vercel.app/careers.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --primary: #0B3B5C;
+            --primary-light: #1a6b8a;
+            --accent: #3b9eff;
+            --white: #ffffff;
+            --gray: #e2e8f0;
+            --gray-light: #f7fafc;
+            --ice: #e8f4f8;
+            --ice-dark: #d0e8f0;
+            --text-dark: #2d3748;
+            --text-light: #4a5568;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --transition: all 0.2s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--gray-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--gray);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 70px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover {
+            background: var(--ice);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        /* Careers Page */
+        .careers-page-header {
+            background: var(--white);
+            padding: 90px 0 32px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .careers-page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .careers-page-desc {
+            font-size: 1rem;
+            color: var(--text-light);
+            max-width: 700px;
+        }
+
+        .careers-section {
+            padding: 40px 0 80px;
+            background: var(--gray-light);
+            min-height: 60vh;
+        }
+
+        .careers-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        /* Sidebar */
+        .careers-sidebar {
+            position: sticky;
+            top: 90px;
+        }
+
+        .careers-sidebar-block {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray);
+        }
+
+        .careers-sidebar-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--ice);
+        }
+
+        .careers-categories {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .careers-categories li {
+            margin-bottom: 4px;
+        }
+
+        .careers-cat-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 14px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            transition: var(--transition);
+            font-weight: 400;
+        }
+
+        .careers-cat-btn:hover {
+            background: var(--ice);
+            color: var(--accent);
+        }
+
+        .careers-cat-btn.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .careers-sidebar-search {
+            position: relative;
+        }
+
+        .careers-sidebar-search input {
+            width: 100%;
+            padding: 10px 14px 10px 38px;
+            border: 2px solid var(--gray);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .careers-sidebar-search input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.1);
+        }
+
+        .careers-sidebar-search i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        /* Main Content */
+        .careers-content {
+            min-height: 300px;
+        }
+
+        .careers-results-header {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .careers-results-count {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .careers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .career-card {
+            background: var(--white);
+            border: 1px solid var(--gray);
+            border-radius: 12px;
+            padding: 20px;
+            transition: var(--transition);
+            display: flex;
+            gap: 20px;
+        }
+
+        .career-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-sm);
+            transform: translateX(4px);
+        }
+
+        .career-card-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--ice) 0%, var(--ice-dark) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .career-card-icon i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .career-card-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .career-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .career-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .career-card-tag {
+            background: var(--ice);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .career-card-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .career-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .career-card-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .career-card-status.active {
+            color: #28a745;
+        }
+
+        .career-card-status.inactive {
+            color: #6c757d;
+        }
+
+        .career-card-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .career-card-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .career-card-btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+        }
+
+        .career-card-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .career-card-btn-secondary {
+            background: var(--ice);
+            color: var(--primary);
+        }
+
+        .career-card-btn-secondary:hover {
+            background: var(--ice-dark);
+        }
+
+        .careers-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--gray);
+        }
+
+        .careers-loading i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .careers-loading span {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .careers-no-results {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            background: var(--white);
+            border-radius: 12px;
+            border: 1px solid var(--gray);
+        }
+
+        .careers-no-results i {
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.4;
+            margin-bottom: 16px;
+        }
+
+        .careers-no-results h3 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.25rem;
+        }
+
+        .careers-no-results p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .modal-content.wide {
+            max-width: 700px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .modal-header button {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .modal-header button:hover {
+            background: var(--gray-light);
+            color: var(--text-dark);
+        }
+
+        .modal-body {
+            padding: 24px 32px 32px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(11, 59, 92, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--gray);
+        }
+
+        .btn-outline:hover {
+            background: var(--gray-light);
+            border-color: #cbd5e0;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.1);
+        }
+
+        .form-group input[readonly] {
+            background: #f8fafc;
+            cursor: not-allowed;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-success {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Vacancy Details */
+        .vacancy-details-body {
+            padding: 24px 32px 32px;
+        }
+
+        .vacancy-details-body .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .vacancy-details-body .detail-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--ice) 0%, var(--ice-dark) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .vacancy-details-body .detail-icon i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .vacancy-details-body .detail-title {
+            margin: 0 0 8px 0;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .vacancy-details-body .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .vacancy-details-body .detail-section h4 {
+            margin: 0 0 12px 0;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .vacancy-details-body .detail-section p {
+            margin: 0;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .vacancy-details-body .detail-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .vacancy-details-body .detail-tag {
+            background: var(--ice);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .vacancy-details-body .detail-actions {
+            padding-top: 16px;
+            border-top: 1px solid var(--gray);
+            margin-top: 8px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray);
+        }
+
+        /* Animations */
+        .career-card {
+            animation: careerFadeIn 0.3s ease-out;
+        }
+
+        @keyframes careerFadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .careers-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .careers-sidebar {
+                position: static;
+            }
+
+            .careers-sidebar-block {
+                margin-bottom: 16px;
+            }
+
+            .careers-categories {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .careers-categories li {
+                margin-bottom: 0;
+            }
+
+            .careers-cat-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+
+            .careers-page-header {
+                padding: 80px 0 24px;
+            }
+
+            .careers-page-title {
+                font-size: 1.5rem;
+            }
+
+            .careers-page-desc {
+                font-size: 0.9rem;
+            }
+
+            .career-card {
+                flex-direction: column;
+            }
+
+            .career-card-icon {
+                width: 100%;
+                height: 44px;
+            }
+
+            .career-card-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .career-card-actions {
+                width: 100%;
+            }
+
+            .career-card-btn {
+                flex: 1;
+            }
+
+            .careers-section {
+                padding: 24px 0 60px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .vacancy-details-body {
+                padding: 20px;
+            }
+
+            .modal-header {
+                padding: 16px 20px;
+            }
+
+            .modal-header h2 {
+                font-size: 1.2rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--white);
+                flex-direction: column;
+                padding: 16px 20px;
+                border-bottom: 1px solid var(--gray);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .nav-menu.open {
+                display: flex;
+            }
+
+            .nav-link {
+                padding: 12px 16px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <i class="fas fa-snowflake"></i>
+                <span>Знание Севера</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="about.html" class="nav-link">Наша история</a></li>
+                <li><a href="documents.html" class="nav-link">Документы</a></li>
+                <li><a href="blog.html" class="nav-link">Блог</a></li>
+                <li><a href="careers.html" class="nav-link active">Вакансии</a></li>
+                <li><a href="index.html#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Page Title -->
+        <div class="careers-page-header">
+            <div class="container">
+                <h1 class="careers-page-title">Вакансии</h1>
+                <p class="careers-page-desc">Присоединяйтесь к команде «Знание Севера» — мы ищем талантливых специалистов</p>
+            </div>
+        </div>
+
+        <!-- Careers Section -->
+        <section class="careers-section">
+            <div class="container">
+                <div class="careers-layout">
+                    <!-- Sidebar -->
+                    <aside class="careers-sidebar">
+                        <div class="careers-sidebar-block">
+                            <h3 class="careers-sidebar-title">Категории</h3>
+                            <ul class="careers-categories">
+                                <li><button class="careers-cat-btn active" data-category="all">Все вакансии</button></li>
+                                <li><button class="careers-cat-btn" data-category="development">Разработка</button></li>
+                                <li><button class="careers-cat-btn" data-category="design">Дизайн</button></li>
+                                <li><button class="careers-cat-btn" data-category="management">Менеджмент</button></li>
+                                <li><button class="careers-cat-btn" data-category="data">Базы данных</button></li>
+                                <li><button class="careers-cat-btn" data-category="other">Другое</button></li>
+                            </ul>
+                        </div>
+
+                        <div class="careers-sidebar-block">
+                            <h3 class="careers-sidebar-title">Поиск</h3>
+                            <div class="careers-sidebar-search">
+                                <input type="text" id="searchInput" placeholder="Поиск по названию...">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Content -->
+                    <div class="careers-content">
+                        <!-- Results info -->
+                        <div class="careers-results-header">
+                            <span class="careers-results-count" id="resultsCount">Загрузка...</span>
+                        </div>
+
+                        <!-- Vacancies List -->
+                        <div class="careers-list" id="vacanciesList">
+                            <div class="careers-loading">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <span>Загрузка вакансий...</span>
+                            </div>
+                        </div>
+
+                        <!-- No Results -->
+                        <div class="careers-no-results" id="noResults" style="display:none">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>Вакансии не найдены</h3>
+                            <p>Попробуйте изменить фильтр или поисковый запрос</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Application Form Modal -->
+        <div id="applicationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Откликнуться на вакансию</h2>
+                    <button onclick="closeApplicationModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="applicationForm" onsubmit="submitApplication(event)">
+                        <div class="form-group">
+                            <label>Вакансия</label>
+                            <input type="text" id="vacancySelect" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Имя</label>
+                            <input type="text" id="applicantName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="applicantEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Telegram (или другой мессенджер)</label>
+                            <input type="text" id="applicantContact" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Расскажите о себе</label>
+                            <textarea id="applicantMessage" required rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Ссылка на портфолио/GitHub</label>
+                            <input type="url" id="applicantPortfolio" placeholder="https://...">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" onclick="closeApplicationModal()">Отмена</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Отправить заявку
+                            </button>
+                        </div>
+                    </form>
+
+                    <div id="formSuccess" class="form-success" style="display:none;">
+                        <i class="fas fa-check-circle" style="margin-right: 8px; font-size: 1.5rem;"></i>
+                        <div style="font-size: 1.1rem; margin-top: 8px;">
+                            Спасибо! Ваша заявка принята.<br>
+                            <strong>Скоро с вами свяжутся!</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vacancy Details Modal -->
+        <div id="vacancyDetailsModal" class="modal">
+            <div class="modal-content wide">
+                <div class="modal-header">
+                    <h2 id="vacancyDetailsTitle">Детали вакансии</h2>
+                    <button onclick="closeVacancyDetailsModal()">&times;</button>
+                </div>
+                <div class="vacancy-details-body" id="vacancyDetailsContent">
+                    <!-- Dynamic content -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-snowflake"></i>
+                    <span>Знание Севера</span>
+                    <p>Корпорация цифровых решений</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Главная</a>
+                    <a href="about.html">Наша история</a>
+                    <a href="blog.html">Блог</a>
+                    <a href="careers.html">Вакансии</a>
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="index.html#contacts">Контакты</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://t.me/znaniesevera" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://github.com/razetka2010" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://max.ru/join/KHFb5Aag3aTWi6CZS0D8jM13bFWcXrLOsq0SSWn_Gzg" target="_blank"><i class="fas fa-rocket"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Корпорация «Знание Севера». Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        let allVacancies = [];
+        let currentCategory = 'all';
+        let currentSearch = '';
+
+        async function loadVacancies() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/vacancies`);
+                const data = await response.json();
+
+                allVacancies = data || [];
+                const careersStructuredData = document.createElement('script');
+                careersStructuredData.type = 'application/ld+json';
+                careersStructuredData.textContent = JSON.stringify({
+                    '@context': 'https://schema.org',
+                    '@type': 'ItemList',
+                    itemListElement: allVacancies.map((vacancy, index) => ({
+                        '@type': 'ListItem', position: index + 1,
+                        item: { '@type': 'JobPosting', title: vacancy.title, description: vacancy.description, hiringOrganization: { '@type': 'Organization', name: 'Знание Севера' }, employmentType: 'FULL_TIME' }
+                    }))
+                });
+                document.head.appendChild(careersStructuredData);
+
+                const list = document.getElementById('vacanciesList');
+                const select = document.getElementById('vacancySelect');
+
+                if (allVacancies.length === 0) {
+                    list.innerHTML = '<div class="careers-loading">Нет активных вакансий</div>';
+                    document.getElementById('resultsCount').textContent = '0 вакансий';
+                    return;
+                }
+
+                renderVacancies();
+            } catch (error) {
+                console.error('Error loading vacancies:', error);
+                document.getElementById('vacanciesList').innerHTML = '<div class="careers-loading">Ошибка загрузки вакансий. Убедитесь, что сервер запущен.</div>';
+                document.getElementById('resultsCount').textContent = 'Ошибка загрузки';
+            }
+        }
+
+        function getVacancyCategory(icon) {
+            const iconMap = {
+                'fab fa-js': 'development',
+                'fab fa-python': 'development',
+                'fab fa-react': 'development',
+                'fas fa-database': 'data',
+                'fas fa-paint-brush': 'design',
+                'fas fa-project-diagram': 'management'
+            };
+            return iconMap[icon] || 'other';
+        }
+
+        function renderVacancies() {
+            const list = document.getElementById('vacanciesList');
+            const countSpan = document.getElementById('resultsCount');
+
+            let filtered = allVacancies;
+
+            // Filter by category
+            if (currentCategory !== 'all') {
+                filtered = filtered.filter(v => getVacancyCategory(v.icon) === currentCategory);
+            }
+
+            // Filter by search
+            if (currentSearch) {
+                const searchLower = currentSearch.toLowerCase();
+                filtered = filtered.filter(v =>
+                    v.title.toLowerCase().includes(searchLower) ||
+                    v.description.toLowerCase().includes(searchLower) ||
+                    (v.tags && v.tags.some(t => t.toLowerCase().includes(searchLower)))
+                );
+            }
+
+            // Update count
+            const count = filtered.length;
+            countSpan.textContent = count === 0 ? 'Вакансии не найдены' : `${count} ${getVacancyWord(count)}`;
+
+            if (count === 0) {
+                list.innerHTML = '';
+                document.getElementById('noResults').style.display = 'flex';
+                return;
+            }
+
+            document.getElementById('noResults').style.display = 'none';
+
+            list.innerHTML = filtered.map(v => `
+                <div class="career-card">
+                    <div class="career-card-icon"><i class="${v.icon}"></i></div>
+                    <div class="career-card-body">
+                        <h3 class="career-card-title">${escapeHtml(v.title)}</h3>
+                        <div class="career-card-tags">
+                            ${(v.tags || []).map(t => `<span class="career-card-tag">${escapeHtml(t)}</span>`).join('')}
+                        </div>
+                        <p class="career-card-desc">${escapeHtml(v.description)}</p>
+                        <div class="career-card-footer">
+                            <span class="career-card-status ${v.is_active ? 'active' : 'inactive'}">
+                                <i class="fas fa-${v.is_active ? 'check-circle' : 'times-circle'}"></i>
+                                ${v.is_active ? 'Активная' : 'Неактивная'}
+                            </span>
+                            <div class="career-card-actions">
+                                <button class="career-card-btn career-card-btn-secondary" onclick="showVacancyDetails(${v.id})">
+                                    <i class="fas fa-eye"></i> Подробнее
+                                </button>
+                                <button class="career-card-btn career-card-btn-primary" onclick="openApplicationModal('${escapeHtml(v.title)}')">
+                                    <i class="fas fa-paper-plane"></i> Откликнуться
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getVacancyWord(count) {
+            const lastDigit = count % 10;
+            const lastTwoDigits = count % 100;
+
+            if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+                return 'вакансий';
+            }
+
+            switch (lastDigit) {
+                case 1:
+                    return 'вакансия';
+                case 2:
+                case 3:
+                case 4:
+                    return 'вакансии';
+                default:
+                    return 'вакансий';
+            }
+        }
+
+        function openApplicationModal(title) {
+            document.getElementById('vacancyDetailsModal').classList.remove('active');
+            document.getElementById('vacancySelect').value = title;
+            document.getElementById('applicationModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeApplicationModal() {
+            document.getElementById('applicationModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showVacancyDetails(id) {
+            const vacancy = allVacancies.find(v => v.id === id);
+            if (!vacancy) return;
+
+            document.getElementById('vacancyDetailsTitle').textContent = vacancy.title;
+            document.getElementById('vacancyDetailsContent').innerHTML = `
+                <div class="detail-item">
+                    <div class="detail-icon">
+                        <i class="${vacancy.icon}"></i>
+                    </div>
+                    <div>
+                        <h3 class="detail-title">${escapeHtml(vacancy.title)}</h3>
+                        <span class="career-card-status ${vacancy.is_active ? 'active' : 'inactive'}">
+                            <i class="fas fa-${vacancy.is_active ? 'check-circle' : 'times-circle'}"></i>
+                            ${vacancy.is_active ? 'Активная вакансия' : 'Неактивная вакансия'}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h4>Описание</h4>
+                    <p>${escapeHtml(vacancy.description)}</p>
+                </div>
+
+                ${vacancy.tags && vacancy.tags.length > 0 ? `
+                <div class="detail-section">
+                    <h4>Теги</h4>
+                    <div class="detail-tags">
+                        ${vacancy.tags.map(t => `<span class="detail-tag">${escapeHtml(t)}</span>`).join('')}
+                    </div>
+                </div>
+                ` : ''}
+
+                <div class="detail-actions">
+                    <button class="btn btn-primary" onclick="closeVacancyDetailsModal(); openApplicationModal('${escapeHtml(vacancy.title)}');">
+                        <i class="fas fa-paper-plane"></i> Откликнуться на вакансию
+                    </button>
+                </div>
+            `;
+            document.getElementById('vacancyDetailsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVacancyDetailsModal() {
+            document.getElementById('vacancyDetailsModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        async function submitApplication(event) {
+            event.preventDefault();
+
+            const data = {
+                vacancy_title: document.getElementById('vacancySelect').value,
+                name: document.getElementById('applicantName').value,
+                email: document.getElementById('applicantEmail').value,
+                contact: document.getElementById('applicantContact').value,
+                message: document.getElementById('applicantMessage').value,
+                portfolio: document.getElementById('applicantPortfolio').value
+            };
+
+            if (!data.vacancy_title) {
+                alert('Выберите вакансию');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/applications`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    window.location.href = '/thanks.html';
+                } else {
+                    const error = await response.json();
+                    alert('Ошибка: ' + error.error);
+                }
+            } catch (error) {
+                alert('Ошибка отправки: ' + error.message);
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Category filter handlers
+        document.querySelectorAll('.careers-cat-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.careers-cat-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentCategory = this.dataset.category;
+                renderVacancies();
+            });
+        });
+
+        // Search handler
+        document.getElementById('searchInput').addEventListener('input', function() {
+            currentSearch = this.value;
+            renderVacancies();
+        });
+
+        // Close modals on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeApplicationModal();
+                closeVacancyDetailsModal();
+            }
+        });
+
+        // Close modals on outside click
+        window.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                closeApplicationModal();
+                closeVacancyDetailsModal();
+            }
+        });
+
+        // Initialize
+        loadVacancies();
+    </script>
+</body>
+</html>

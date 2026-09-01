@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Корпорация Знание Севера — разработка Telegram-ботов, образовательные платформы, кибербезопасность и IT-решения под ключ">
+    <meta name="keywords" content="разработка ботов, образовательная платформа, кибербезопасность, IT-решения">
+    <meta name="author" content="Знание Севера">
+    <title>Знание Севера | Корпорация цифровых решений</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Яндекс Вебмастер -->
+    <meta name="yandex-verification" content="1c1312e7efc2c420" />
+    
+    <!-- Open Graph для соцсетей -->
+    <meta property="og:title" content="Знание Севера | Корпорация цифровых решений" />
+    <meta property="og:description" content="Разработка Telegram-ботов, образовательные платформы, кибербезопасность и IT-решения под ключ" />
+    <meta property="og:image" content="https://znaniesevera.vercel.app/og-image.jpg" />
+    <meta property="og:url" content="https://znaniesevera.vercel.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Знание Севера" />
+    
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Знание Севера | Корпорация цифровых решений" />
+    <meta name="twitter:description" content="Разработка Telegram-ботов, образовательные платформы, кибербезопасность и IT-решения под ключ" />
+    <meta name="twitter:image" content="https://znaniesevera.vercel.app/og-image.jpg" />
+    
+    <!-- Дополнительные SEO мета-теги -->
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow" />
+    <link rel="canonical" href="https://znaniesevera.vercel.app/" />
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <i class="fas fa-snowflake"></i>
+                <span>Знание Севера</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link active">Главная</a></li>
+                <li><a href="about.html" class="nav-link">Наша история</a></li>
+                <li><a href="documents.html" class="nav-link">Документы</a></li>
+                <li><a href="blog.html" class="nav-link">Блог</a></li>
+                <li><a href="careers.html" class="nav-link">Вакансии</a></li>
+                <li><a href="index.html#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg"></div>
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="highlight">Знание Севера</span>
+                        <br>Цифровые решения для будущего
+                    </h1>
+                    <p class="hero-description">
+                        Создаём современные сайты, приложения и комплексные программные решения 
+                        любого масштаба — от небольших задач до крупных корпоративных систем
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#contacts" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Связаться
+                        </a>
+                        <a href="#services" class="btn btn-outline">
+                            <i class="fas fa-arrow-down"></i> Наши услуги
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">5+</div>
+                        <div class="stat-label">Активных проектов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Техподдержка</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Индивидуальный подход</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Наши услуги</h2>
+                    <p class="section-subtitle">Индивидуальные решения под ваши задачи</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h3>Telegram-боты «Под ключ»</h3>
+                        <p>Разработка профессиональных Telegram-ботов любой сложности. Автоматизация бизнес-процессов, клиентский сервис, интернет-магазины и многое другое.</p>
+                        <div class="service-feature">
+                            <i class="fas fa-tag"></i>
+                            <span>Стоимость определяется индивидуально</span>
+                        </div>
+                        <div class="service-feature">
+                            <i class="fas fa-cogs"></i>
+                            <span>Полный цикл разработки</span>
+                        </div>
+                    </div>
+
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-envelope"></i> <!-- Иконка для почтового сервиса -->
+                        </div>
+                        <h3>Почтовые сервисы</h3>
+                        <p>Создание корпоративных почтовых систем и гибридных веб-приложений для внутреннего использования сотрудниками и партнёрами.</p>
+                        <div class="service-feature">
+                            <i class="fas fa-rocket"></i>
+                            <span>Проект в БЕТА-версии</span>
+                        </div>
+                        <div class="service-links">
+                            <a href="https://zs-mail-service.vercel.app/" target="_blank" class="service-link">
+                                <i class="fas fa-external-link-alt"></i> Попробовать
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Наши проекты</h2>
+                    <p class="section-subtitle">Реальные кейсы, которые мы реализовали</p>
+                </div>
+                <div class="portfolio-grid">
+                    
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3>КиберЛаб</h3>
+                            <p>Информационный портал о кибербезопасности и защите от угроз</p>
+                            <div class="portfolio-tags">
+                                <span>Информационный сайт</span>
+                                <span>HTML/CSS</span>
+                                <span>JS</span>
+                            </div>
+                            <a href="https://razetka2010.github.io/Digital-Security/" target="_blank" class="portfolio-link">
+                                Посмотреть проект <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <i class="fas fa-envelope"></i> <!-- Иконка для почтового сервиса -->
+                        </div>
+                        <div class="portfolio-content">
+                            <h3>Знание Севера — Почтовый сервис</h3>
+                            <p>Гибридное веб-приложение, объединяющее корпоративный портал и почтовый клиент. Проект в БЕТА-версии.</p>
+                            <div class="portfolio-tags">
+                                <span>Почтовый сервис</span>
+                                <span>HTML/CSS/JS</span>
+                                <span>Node.js/PostgreSQL</span>
+                            </div>
+                            <a href="https://zs-mail-service.vercel.app/" target="_blank" class="portfolio-link">
+                                Посмотреть проект <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3>ТТС-Север</h3>
+                            <p>ТТС-Север — система для обработки заявок</p>
+                            <div class="portfolio-tags">
+                                <span>Информационный сайт</span>
+                                <span>HTML/CSS</span>
+                                <span>JS</span>
+                                <span>Python/Django</span>
+                            </div>
+                            <a href="https://tts-sever-sales.vercel.app/" target="_blank" class="portfolio-link">
+                                Посмотреть проект <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CyberLab Section -->
+        <section id="cyberlab" class="cyberlab section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Знание Севера КиберЛаб</h2>
+                    <p class="section-subtitle">Информационный портал о кибербезопасности</p>
+                </div>
+                <div class="cyberlab-content">
+                    <div class="cyberlab-info">
+                        <div class="warning-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Актуальные угрозы 2026</span>
+                        </div>
+                        <h3>Современный информационный сайт о кибербезопасности</h3>
+                        <p>КиберЛаб — это современный информационный сайт, посвященный теме кибербезопасности и защите от вредоносных программ. Проект создан с целью информирования пользователей о различных типах цифровых угроз и методах защиты в 2026 году.</p>
+                        
+                        <div class="cyberlab-goals">
+                            <h4>Цели проекта:</h4>
+                            <ul>
+                                <li><i class="fas fa-graduation-cap"></i> Образование пользователей в области кибербезопасности</li>
+                                <li><i class="fas fa-chart-line"></i> Обзор актуальных угроз 2026 года</li>
+                                <li><i class="fas fa-tools"></i> Практические рекомендации по защите</li>
+                                <li><i class="fas fa-info-circle"></i> Честное информирование об антивирусном ПО</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="warning-message">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <p><strong>Важное предупреждение:</strong> Данный сайт носит исключительно информационный характер. Авторы не несут ответственности за выбор программного обеспечения пользователями. Всегда скачивайте программы только с официальных сайтов!</p>
+                        </div>
+                        
+                        <a href="https://razetka2010.github.io/Digital-Security/" target="_blank" class="btn btn-primary">
+                            <i class="fas fa-external-link-alt"></i> Перейти на КиберЛаб
+                        </a>
+                    </div>
+                    <div class="cyberlab-preview">
+                        <div class="preview-card">
+                            <i class="fas fa-laptop-code"></i>
+                            <h4>Кибербезопасность</h4>
+                            <p>Защита от цифровых угроз</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+                <!-- Mail Service Section -->
+        <section id="mail-service" class="mail-service section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Знание Севера — Почтовый сервис</h2>
+                    <p class="section-subtitle">Гибридное веб-приложение для корпоративной коммуникации</p>
+                </div>
+                <div class="mail-service-content">
+                    <div class="mail-service-features">
+                        <div class="feature-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Корпоративная почта</h4>
+                                <p>Полноценный почтовый клиент для внутренней и внешней коммуникации сотрудников</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-newspaper"></i>
+                            <div>
+                                <h4>Новостной портал</h4>
+                                <p>Централизованная лента новостей и объявлений для всей компании</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Управление контактами</h4>
+                                <p>Единая адресная книга сотрудников и партнёров с удобным поиском</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-lock"></i>
+                            <div>
+                                <h4>Безопасность и контроль</h4>
+                                <p>Защищённый доступ, ролевая модель и логирование действий</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-mobile-alt"></i>
+                            <div>
+                                <h4>Адаптивный интерфейс</h4>
+                                <p>Работает на всех устройствах — от ПК до смартфонов</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mail-service-audience">
+                        <h3>Для кого предназначен сервис</h3>
+                        <div class="audience-grid">
+                            <span class="audience-tag"><i class="fas fa-user-tie"></i> Сотрудники</span>
+                            <span class="audience-tag"><i class="fas fa-handshake"></i> Партнёры</span>
+                            <span class="audience-tag"><i class="fas fa-user-cog"></i> Администрация</span>
+                            <span class="audience-tag"><i class="fas fa-users-cog"></i> HR-отдел</span>
+                        </div>
+                        <div class="mail-service-status">
+                            <span class="status-badge beta">
+                                <i class="fas fa-flask"></i> БЕТА-версия
+                            </span>
+                            <p style="margin-top: 12px; color: var(--text-light); font-size: 0.9rem;">
+                                Проект активно развивается. Присоединяйтесь к тестированию!
+                            </p>
+                        </div>
+                        <a href="https://zs-mail-service.vercel.app/" target="_blank" class="btn btn-primary">
+                            <i class="fas fa-external-link-alt"></i> Перейти к сервису
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TTS-Sever Section -->
+<section id="tts" class="tts-section section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">ТТС-Север</h2>
+            <p class="section-subtitle">Система учёта заявок и обращений для вашего бизнеса</p>
+        </div>
+        <div class="tts-content" style="display: grid; grid-template-columns: 1fr 0.8fr; gap: 48px; align-items: center;">
+            <div class="tts-info">
+                <div class="tts-badge" style="display: inline-flex; align-items: center; gap: 8px; background: var(--ice); padding: 6px 16px; border-radius: 50px; margin-bottom: 20px;">
+                    <i class="fas fa-ticket-alt" style="color: var(--accent);"></i>
+                    <span style="font-weight: 500;">Готовое решение от Знание Севера</span>
+                </div>
+                <h3 style="font-size: 1.75rem; color: var(--primary); margin-bottom: 16px;">Автоматизация учёта заявок</h3>
+                <p style="color: var(--text-light); margin-bottom: 24px;">ТТС-Север — профессиональная система для обработки заявок, контроля статусов и аналитики. Разработано для компаний, которым нужен порядок в обращениях клиентов.</p>
+                
+                <div class="tts-features" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 28px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-plus-circle" style="color: var(--accent);"></i>
+                        <span>Создание заявок</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-chart-line" style="color: var(--accent);"></i>
+                        <span>Аналитика</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-tv" style="color: var(--accent);"></i>
+                        <span>TV-доска</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-shield-alt" style="color: var(--accent);"></i>
+                        <span>Ролевая модель</span>
+                    </div>
+                </div>
+                
+                <div class="tts-price" style="margin-bottom: 28px;">
+                    <span style="font-size: 2rem; font-weight: 800; color: var(--accent);">10 000 ₽</span>
+                    <span style="color: var(--text-light);"> — полный исходный код</span>
+                </div>
+                
+                <div class="tts-buttons" style="display: flex; gap: 16px; flex-wrap: wrap;">
+                    <a href="https://tts-sever-sales.vercel.app/" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt"></i> Подробнее о ТТС-Север
+                    </a>
+                    <a href="https://t.me/znaniesevera" target="_blank" class="btn btn-outline">
+                        <i class="fab fa-telegram"></i> Купить
+                    </a>
+                </div>
+            </div>
+            <div class="tts-preview">
+                <div class="preview-card" style="background: var(--ice); border-radius: 20px; padding: 32px; text-align: center;">
+                    <i class="fas fa-ticket-alt" style="font-size: 4rem; color: var(--accent); margin-bottom: 20px;"></i>
+                    <h4 style="margin-bottom: 12px;">ТТС-Север</h4>
+                    <p style="color: var(--text-light); margin-bottom: 20px;">Система учёта заявок</p>
+                    <div style="background: white; border-radius: 12px; padding: 16px; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gray);">
+                            <span style="font-weight: 600;">№2412</span>
+                            <span style="color: var(--accent); font-size: 0.75rem;">В работе</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>№2413</span>
+                            <span style="color: #28a745; font-size: 0.75rem;">Выполнена</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Отзывы клиентов</h2>
+                    <p class="section-subtitle">Что говорят о нас заказчики</p>
+                </div>
+                <div class="testimonials-slider">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left"></i>
+                            <p>Отличная команда! Разработали Telegram-бота под ключ за 2 недели. Всё работает стабильно, клиенты довольны. Рекомендую!</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div>
+                                <h4>Шитиков Артём</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left"></i>
+                            <p>Сайт КиберЛаб превзошел ожидания! Информативно, современно, удобно. Отдельное спасибо за техподдержку.</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div>
+                                <h4>Вадим Алексеевич</h4>
+                                <p>Преподователь IT-школы</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <i class="fas fa-quote-left"></i>
+                            <p>Образовательная платформа помогла автоматизировать учёбу. Родители и учителя в восторге. Спасибо команде Знание Севера!</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div>
+                                <h4>Директор школы №11</h4>
+                                <p>г. Новый Уренгой</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Часто задаваемые вопросы</h2>
+                    <p class="section-subtitle">Ответы на популярные вопросы</p>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Сколько времени занимает разработка Telegram-бота?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Сроки зависят от сложности проекта. Простые боты — от 3-5 дней, средние — 2-3 недели, сложные с интеграциями — от 1 месяца. Мы всегда озвучиваем точные сроки после обсуждения ТЗ.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Предоставляете ли вы техническую поддержку после запуска?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Да! Мы предоставляем гарантийное обслуживание в течение 1 месяца после запуска, а также предлагаем различные пакеты технической поддержки на долгосрочной основе.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Можете ли вы доработать существующий проект?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Конечно! Мы беремся за доработку существующих проектов. Проводим аудит кода, исправляем ошибки и добавляем новый функционал.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Какие способы оплаты вы принимаете?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Работаем по безналичному расчету для юридических лиц, а также принимаем оплату на карту для физических лиц. Возможна поэтапная оплата по договоренности.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Есть ли у вас примеры работ?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Да! В разделе "Наши проекты" вы можете ознакомиться с нашими реализованными работами, включая ЗС ключ, ЗС пометка, КиберЛаб и образовательную платформу.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section id="team" class="team section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Присоединяйтесь к команде</h2>
+                    <p class="section-subtitle">Мы расширяемся и ищем талантливых специалистов</p>
+                </div>
+                <div class="team-content">
+                    <div class="team-info">
+                        <i class="fas fa-snowplow team-icon"></i>
+                        <h3>Знание Севера — команда профессионалов</h3>
+                        <p>Знание Севера - это команда, которая помогает создавать современные сайты, приложения и комплексные программные решения. Мы работаем с проектами любого масштаба — от небольших задач до крупных корпоративных систем.</p>
+                        <p>Мы расширяем команду Знание Севера и приглашаем специалистов для участия в новых проектах.</p>
+                        <p class="team-highlight">Если ты хочешь участвовать в создании цифровых продуктов и расти вместе с командой - пиши нам.</p>
+                        <div class="team-contact">
+                            <i class="fas fa-envelope"></i>
+                            <span>@znaniesevera — напишите нам в Telegram</span>
+                        </div>
+                    </div>
+                    <div class="team-skills">
+                        <div class="skill-item">
+                            <i class="fab fa-js"></i>
+                            <span>JavaScript / TypeScript</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-python"></i>
+                            <span>Python</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-react"></i>
+                            <span>React / Vue</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-database"></i>
+                            <span>Базы данных</span>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-figma"></i>
+                            <span>UI/UX Дизайн</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacts Section -->
+        <section id="contacts" class="contacts section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Свяжитесь с нами</h2>
+                    <p class="section-subtitle">Готовы обсудить ваш проект</p>
+                </div>
+                <div class="contacts-content">
+                    <div class="contact-card">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>Телефон</h3>
+                        <a href="tel:+79370948423" class="contact-link">+7 (937) 094-84-23</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fab fa-telegram"></i>
+                        <h3>Telegram</h3>
+                        <a href="https://t.me/znaniesevera" target="_blank" class="contact-link">@znaniesevera</a>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-rocket"></i>
+                        <h3>MAX</h3>
+                        <a href="https://max.ru/join/KHFb5Aag3aTWi6CZS0D8jM13bFWcXrLOsq0SSWn_Gzg" target="_blank" class="contact-link">
+                            Присоединиться в MAX
+                        </a>
+                        <p style="font-size: 0.85rem; margin-top: 10px; color: var(--text-light);">
+                            Новое приложение для общения
+                        </p>
+                    </div>
+                    <div class="contact-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Время работы</h3>
+                        <p class="contact-time">Пн-Пт: 9:00-18:00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-snowflake"></i>
+                    <span>Знание Севера</span>
+                    <p>Корпорация цифровых решений</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Главная</a>
+                    <a href="about.html">Наша история</a>
+                    <a href="blog.html">Блог</a>
+                    <a href="careers.html">Вакансии</a>
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="index.html#contacts">Контакты</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://t.me/znaniesevera" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://github.com/razetka2010" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://max.ru/join/KHFb5Aag3aTWi6CZS0D8jM13bFWcXrLOsq0SSWn_Gzg" target="_blank"><i class="fas fa-rocket"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Корпорация «Знание Севера». Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Знание Севера",
+            "alternateName": "Knowledge of the North",
+            "description": "Корпорация цифровых решений — разработка Telegram-ботов, образовательные платформы, кибербезопасность",
+            "url": "https://znaniesevera.vercel.app/",
+            "logo": "https://znaniesevera.vercel.app/favicon.svg",
+            "email": "contact@znaniesevera.ru",
+            "telephone": "+79370948423",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "RU"
+            },
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+79370948423",
+                "contactType": "sales",
+                "availableLanguage": ["Russian"]
+            },
+            "sameAs": [
+                "https://t.me/znaniesevera",
+                "https://github.com/razetka2010"
+            ]
+        }
+    </script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

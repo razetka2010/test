@@ -1,0 +1,2860 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель | Знание Севера</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            color: #0a1c2f;
+        }
+        
+        .admin-container {
+            max-width: 1400px;
+            margin: 100px auto 60px;
+            padding: 0 24px;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 10px 24px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: #4a5b6e;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        
+        .tab-btn:hover {
+            background: #e6f7ff;
+        }
+        
+        .tab-btn.active {
+            background: #3b9eff;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        
+        .btn-add {
+            background: #3b9eff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-add:hover {
+            background: #0b3b5f;
+            transform: translateY(-2px);
+        }
+        
+        .posts-table, .applications-table, .projects-table {
+            background: white;
+            border-radius: 20px;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        td:has(.action-btn) {
+            white-space: nowrap;
+            min-width: 150px;
+        }
+        
+        .action-buttons-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: nowrap;
+        }
+        
+        th {
+            background: #e6f7ff;
+            color: #0b3b5f;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background: #f8fafc;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            margin: 0 4px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .action-btn.edit {
+            background: #3b9eff;
+            color: white;
+        }
+        
+        .action-btn.delete {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .action-btn.view {
+            background: #28a745;
+            color: white;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-new {
+            background: #ffc107;
+            color: #856404;
+        }
+        
+        .status-viewed {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .status-contacted {
+            background: #28a745;
+            color: white;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #0b3b5f;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .tag {
+            background: #e6f7ff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            display: inline-block;
+            margin: 2px;
+        }
+        
+        .login-container {
+            max-width: 400px;
+            margin: 200px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #0b3b5f, #1e5a7d);
+            color: white;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #0b3b5f;
+            color: #0b3b5f;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            margin-top: 12px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #4a5b6e;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #4a5b6e;
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: #0b3b5f;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #0a1c2f;
+            font-weight: 500;
+        }
+        
+        .settings-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            max-width: 600px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        
+        .checkbox-label input {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .helper-text {
+            color: #4a5b6e;
+            font-size: 0.75rem;
+            margin-top: 8px;
+        }
+        
+        .settings-message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .settings-message.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .settings-message.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .project-link {
+            display: inline-block;
+            margin: 2px 4px;
+            color: #3b9eff;
+            text-decoration: none;
+        }
+        
+        .project-link:hover {
+            text-decoration: underline;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-container {
+                margin-top: 80px;
+            }
+            
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.875rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+        }
+
+        /* Увеличенная таблица профилей */
+        .profiles-table {
+            background: white;
+            border-radius: 20px;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+
+        .profiles-table table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .profiles-table th,
+        .profiles-table td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .profiles-table th {
+            background: #e6f7ff;
+            color: #0b3b5f;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 18px 20px;
+        }
+
+        .profiles-table td {
+            font-size: 0.95rem;
+            padding: 16px 20px;
+            vertical-align: middle;
+        }
+
+        .profiles-table tr:hover {
+            background: #f8fafc;
+        }
+
+        /* Увеличенные теги */
+        .profiles-table .tag {
+            background: #e6f7ff;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 2px;
+        }
+
+        /* Контактная информация в таблице */
+        .profile-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .profile-contact div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .profile-contact i {
+            width: 18px;
+            color: #3b9eff;
+        }
+
+        /* Статус бейдж увеличенный */
+        .status-badge-large {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-badge-active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge-inactive {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .status-badge-blocked {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Кнопки действий увеличенные */
+        .profiles-table .action-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            margin: 0 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .profiles-table .action-btn.edit {
+            background: #3b9eff;
+            color: white;
+        }
+
+        .profiles-table .action-btn.edit:hover {
+            background: #0b3b5f;
+            transform: translateY(-2px);
+        }
+
+        .profiles-table .action-btn.delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .profiles-table .action-btn.delete:hover {
+            background: #b02a37;
+            transform: translateY(-2px);
+        }
+
+        /* Левая панель фильтров - фиксированная ширина */
+        .profiles-filters-sidebar {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+
+        .profiles-filters-sidebar h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #0b3b5f;
+        }
+
+        .profiles-filters-sidebar label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            color: #4a5b6e;
+        }
+
+        .profiles-filters-sidebar select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .profiles-filters-sidebar select:focus {
+            outline: none;
+            border-color: #3b9eff;
+        }
+
+        /* Категории в боковой панели */
+        .category-item {
+            padding: 10px 12px;
+            margin: 6px 0;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .category-item:hover {
+            background: #e6f7ff;
+        }
+
+        .category-item.active {
+            background: #3b9eff20;
+            color: #0b3b5f;
+            font-weight: 500;
+        }
+
+        .category-count {
+            background: #e6f7ff;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Кнопка сброса фильтров */
+        .reset-filters-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .admin-table-tools {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px 0;
+            margin-bottom: 16px;
+        }
+
+        .admin-table-search {
+            width: min(360px, 100%);
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font: inherit;
+        }
+
+        .admin-table-search:focus {
+            outline: 2px solid #3b9eff;
+            outline-offset: 2px;
+        }
+
+        .admin-pagination {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 6px;
+            padding: 14px 16px;
+        }
+
+        .admin-pagination span {
+            margin-right: auto;
+        }
+
+        .tag {
+            margin: 3px 6px 3px 0;
+        }
+
+        .admin-pagination button {
+            min-width: 34px;
+            height: 34px;
+            padding: 0 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+            color: #0b3b5f;
+            cursor: pointer;
+        }
+
+        .admin-pagination button.active,
+        .admin-pagination button:hover:not(:disabled) {
+            background: #e6f7ff;
+        }
+
+        .admin-pagination button:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .admin-container {
+            max-width: 1520px;
+            margin-top: 96px;
+            padding: 0 32px 48px;
+        }
+
+        .admin-tabs {
+            gap: 6px;
+            margin-bottom: 28px;
+            padding: 6px;
+            border-bottom: 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+
+        .tab-btn {
+            flex: 1 1 130px;
+            min-height: 44px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .admin-header {
+            margin-bottom: 20px;
+            padding: 0 4px;
+        }
+
+        .admin-header h1 {
+            font-size: 1.65rem;
+            line-height: 1.2;
+        }
+
+        .btn-add,
+        .btn {
+            min-height: 44px;
+            padding: 11px 18px;
+            border-radius: 8px;
+        }
+
+        .posts-table,
+        .applications-table,
+        .projects-table,
+        .profiles-table,
+        .profiles-filters-sidebar,
+        .settings-card {
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        }
+
+        table {
+            min-width: 720px;
+        }
+
+        th,
+        td {
+            padding: 14px 18px;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        td {
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        .action-btn {
+            min-width: 36px;
+            min-height: 34px;
+            padding: 7px 10px;
+            margin: 0 2px;
+        }
+
+        .modal-content {
+            border-radius: 12px;
+            padding: 28px;
+        }
+
+        .login-container {
+            margin: 140px auto;
+            padding: 36px;
+            border-radius: 12px;
+        }
+
+        .header {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav {
+            height: 64px;
+            padding: 0 32px;
+        }
+
+        .nav-menu {
+            gap: 24px;
+        }
+
+        .profiles-filters-sidebar {
+            top: 84px;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                margin-top: 78px;
+                padding: 0 14px 32px;
+            }
+
+            .admin-tabs {
+                margin-bottom: 22px;
+            }
+
+            .tab-btn {
+                flex-basis: calc(50% - 6px);
+                min-height: 42px;
+                padding: 9px 10px;
+                font-size: 0.8rem;
+            }
+
+            .admin-header {
+                align-items: stretch;
+            }
+
+            .admin-header h1 {
+                font-size: 1.35rem;
+            }
+
+            .admin-header > .btn-add,
+            .admin-header > div {
+                width: 100%;
+            }
+
+            .admin-header > div {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px !important;
+            }
+
+            .btn-add {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+
+            .posts-table,
+            .applications-table,
+            .projects-table,
+            .profiles-table {
+                border-radius: 8px;
+            }
+
+            th,
+            td {
+                padding: 11px 12px;
+            }
+
+            .profiles-filters-sidebar {
+                position: static;
+            }
+
+            .login-container {
+                width: calc(100% - 28px);
+                margin: 110px auto;
+                padding: 28px 20px;
+            }
+
+            .nav {
+                padding: 0 14px;
+            }
+
+            .logo {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Login Form -->
+        <div id="loginForm">
+            <div class="login-container">
+                <i class="fas fa-snowflake" style="font-size: 3rem; color: #3b9eff; margin-bottom: 20px;"></i>
+                <h2>Вход в админ-панель</h2>
+                <input type="email" id="adminEmail" placeholder="Email" required>
+                <input type="password" id="adminPassword" placeholder="Пароль" required>
+                <button class="btn btn-primary" onclick="login()" style="width: 100%;">Войти</button>
+                <div id="loginError" class="error-message"></div>
+            </div>
+        </div>
+        
+        <!-- Admin Panel -->
+        <div id="adminPanel" style="display: none;">
+            <header class="header">
+                <nav class="nav">
+                    <div class="logo">
+                        <i class="fas fa-snowflake"></i>
+                        <span>Знание Севера | Админ-панель</span>
+                    </div>
+                    <ul class="nav-menu">
+                        <li><a href="index.html" class="nav-link">На сайт</a></li>
+                        <li><a href="blog.html" class="nav-link">Блог</a></li>
+                        <li><a href="#" id="logoutBtn" class="nav-link">Выйти</a></li>
+                    </ul>
+                </nav>
+            </header>
+            
+            <div class="admin-container">
+                <!-- Tabs -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="switchTab('news')">📰 Новости</button>
+                    <button class="tab-btn" onclick="switchTab('vacancies')">💼 Вакансии</button>
+                    <button class="tab-btn" onclick="switchTab('applications')">📋 Отклики</button>
+                    <button class="tab-btn" onclick="switchTab('projects')">🚀 Учёт проектов</button>
+                    <button class="tab-btn" onclick="switchTab('profiles')">👥 Профили</button>
+                    <button class="tab-btn" onclick="switchTab('documents')">📄 Документы</button>
+                    <button class="tab-btn" onclick="switchTab('settings')">⚙️ Настройки</button>
+                </div>
+                
+                <!-- News Tab -->
+                <div id="newsTab" class="tab-content active">
+                    <div class="admin-header">
+                        <h1>Управление новостями</h1>
+                        <button class="btn-add" onclick="openNewsModal()">
+                            <i class="fas fa-plus"></i> Добавить новость
+                        </button>
+                    </div>
+                    <div class="posts-table">
+                        <table>
+                            <thead>
+                                <tr><th>#</th><th>Заголовок</th><th>Категория</th><th>Дата</th><th>Просмотры</th><th>Действия</th></tr>
+                            </thead>
+                            <tbody id="newsTableBody"><tr><td colspan="6" class="loading">Загрузка...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Vacancies Tab -->
+                <div id="vacanciesTab" class="tab-content">
+                    <div class="admin-header">
+                        <h1>Управление вакансиями</h1>
+                        <button class="btn-add" onclick="openVacancyModal()">
+                            <i class="fas fa-plus"></i> Добавить вакансию
+                        </button>
+                    </div>
+                    <div class="posts-table">
+                        <table>
+                            <thead>
+                                <tr><th>ID</th><th>Название</th><th>Теги</th><th>Статус</th><th>Действия</th></tr>
+                            </thead>
+                            <tbody id="vacanciesTableBody"><tr><td colspan="5" class="loading">Загрузка...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Applications Tab -->
+                <div id="applicationsTab" class="tab-content">
+                    <div class="admin-header">
+                        <h1>Отклики на вакансии</h1>
+                    </div>
+                    <div class="applications-table">
+                        <table>
+                            <thead>
+                                <tr><th>ID</th><th>Вакансия</th><th>Имя</th><th>Email</th><th>Статус</th><th>Дата</th><th>Действия</th></tr>
+                            </thead>
+                            <tbody id="applicationsTableBody"><tr><td colspan="7" class="loading">Загрузка...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Projects Tab - обновлённая версия -->
+                <div id="projectsTab" class="tab-content">
+                    <div class="admin-header">
+                        <h1>Учёт проектов</h1>
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn-add" onclick="checkAllProjects()" style="background: #28a745;">
+                                <i class="fas fa-sync-alt"></i> Проверить все
+                            </button>
+                            <button class="btn-add" onclick="openProjectModal()">
+                                <i class="fas fa-plus"></i> Добавить проект
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="projects-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Название проекта</th>
+                                    <th>Стек технологий</th>
+                                    <th>Сайт</th>
+                                    <th>Статус</th>
+                                    <th>Последняя проверка</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projectsTableBody">
+                                <tr><td colspan="7" class="loading">Загрузка...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Модальное окно для редактирования статуса -->
+                <div id="statusModal" class="modal">
+                    <div class="modal-content" style="max-width: 500px;">
+                        <div class="modal-header">
+                            <h2>Управление статусом проекта</h2>
+                            <button onclick="closeStatusModal()" style="background:none;border:none;font-size:1.5rem;">&times;</button>
+                        </div>
+                        <div id="statusModalContent">
+                            <!-- Динамическое содержимое -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profiles Tab -->
+                <div id="profilesTab" class="tab-content">
+                    <div class="admin-header">
+                        <h1>Управление профилями</h1>
+                        <button class="btn-add" onclick="openProfileModal()">
+                            <i class="fas fa-plus"></i> Добавить профиль
+                        </button>
+                    </div>
+                    
+                    <!-- Боковая панель с фильтрами и основной контент -->
+                    <div style="display: grid; grid-template-columns: 300px 1fr; gap: 28px;">
+                        <!-- Левая панель - фильтры -->
+                        <div class="profiles-filters-sidebar">
+                            <h3><i class="fas fa-filter"></i> Фильтры</h3>
+                            
+                            <div style="margin-bottom: 24px;">
+                                <label><i class="fas fa-user-tag"></i> По роли</label>
+                                <select id="filterRole" onchange="filterProfiles()">
+                                    <option value="">Все роли</option>
+                                    <option value="employee">👔 Сотрудник</option>
+                                    <option value="client">🤝 Клиент</option>
+                                    <option value="partner">🤝 Партнёр</option>
+                                    <option value="freelancer">💻 Фрилансер</option>
+                                    <option value="admin">⚙️ Админ</option>
+                                </select>
+                            </div>
+                            
+                            <div style="margin-bottom: 24px;">
+                                <label><i class="fas fa-circle"></i> По статусу</label>
+                                <select id="filterStatus" onchange="filterProfiles()">
+                                    <option value="">Все статусы</option>
+                                    <option value="active">Активный</option>
+                                    <option value="inactive">Неактивный</option>
+                                    <option value="blocked">Заблокирован</option>
+                                </select>
+                            </div>
+                            
+                            <div style="margin-bottom: 24px;">
+                                <label><i class="fas fa-tags"></i> Категории</label>
+                                <div id="categoriesList" style="max-height: 350px; overflow-y: auto;">
+                                    <div class="loading" style="padding: 20px; text-align: center;">Загрузка...</div>
+                                </div>
+                            </div>
+                            
+                            <button class="btn btn-outline reset-filters-btn" onclick="resetFilters()">
+                                <i class="fas fa-undo"></i> Сбросить все фильтры
+                            </button>
+                        </div>
+                        
+                        <!-- Правая панель - таблица -->
+                        <div>
+                            <div class="profiles-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 50px;">#</th>
+                                            <th>ФИО / Должность</th>
+                                            <th style="width: 120px;">Роль</th>
+                                            <th style="width: 120px;">Категория</th>
+                                            <th>Контакты</th>
+                                            <th style="width: 110px;">Статус</th>
+                                            <th style="width: 110px;">Действия</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="profilesTableBody">
+                                        <tr><td colspan="7" class="loading">Загрузка...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Documents Tab -->
+                <div id="documentsTab" class="tab-content">
+                    <div class="admin-header">
+                        <h1>Управление документами</h1>
+                        <button class="btn-add" onclick="openDocumentModal()">
+                            <i class="fas fa-plus"></i> Добавить документ
+                        </button>
+                    </div>
+                    <div class="posts-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Название</th>
+                                    <th>Категория</th>
+                                    <th>Файл</th>
+                                    <th>Статус</th>
+                                    <th>Просмотры</th>
+                                    <th>Скачивания</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="documentsTableBody">
+                                <tr><td colspan="8" class="loading">Загрузка...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Settings Tab -->
+                <div id="settingsTab" class="tab-content">
+                    <div class="admin-header">
+                        <h1>Настройки сайта</h1>
+                    </div>
+                    <div style="background: white; border-radius: 20px; padding: 32px; max-width: 600px;">
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                                <input type="checkbox" id="maintenanceModeCheckbox" style="width: 20px; height: 20px;">
+                                <span style="font-weight: 600;">🔧 Режим технического обслуживания</span>
+                            </label>
+                            <p style="color: #666; font-size: 0.875rem; margin-top: 8px;">
+                                При включении сайт будет недоступен для посетителей. Админ-панель продолжит работать.
+                            </p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Страницы для блокировки (через запятую)</label>
+                            <input type="text" id="maintenancePages" placeholder="index, about, blog" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px;">
+                            <p style="color: #666; font-size: 0.75rem; margin-top: 8px;">
+                                Оставьте пустым для блокировки ВСЕХ страниц
+                            </p>
+                        </div>
+                        
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-primary" onclick="saveSettings()">💾 Сохранить</button>
+                            <button class="btn btn-outline" onclick="loadSettings()">🔄 Обновить</button>
+                        </div>
+                        
+                        <div id="settingsMessage" style="margin-top: 20px; padding: 12px; border-radius: 8px; display: none;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- News Modal -->
+    <div id="newsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="newsModalTitle">Добавить новость</h2>
+                <button onclick="closeNewsModal()" style="background:none;border:none;font-size:1.5rem;">&times;</button>
+            </div>
+            <form onsubmit="saveNews(event)">
+                <input type="hidden" id="newsId">
+                <div class="form-group"><label>Заголовок</label><input type="text" id="newsTitle" required></div>
+                <div class="form-group"><label>Категория</label>
+                    <select id="newsCategory" required>
+                        <option>События</option><option>Проекты</option><option>Команда</option>
+                        <option>Обновления</option><option>Разработка</option><option>История</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>URL изображения</label><input type="url" id="newsImageUrl" placeholder="https://example.com/image.jpg"></div>
+                <div class="form-group"><label>Краткое описание</label><textarea id="newsExcerpt" required rows="3"></textarea></div>
+                <div class="form-group"><label>Полный текст</label><textarea id="newsContent" required rows="8" placeholder="Поддерживает переносы строк, маркеры (•) и URL"></textarea></div>
+                <div style="display:flex;gap:12px;justify-content:flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeNewsModal()">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Vacancy Modal -->
+    <div id="vacancyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="vacancyModalTitle">Добавить вакансию</h2>
+                <button onclick="closeVacancyModal()" style="background:none;border:none;font-size:1.5rem;">&times;</button>
+            </div>
+            <form onsubmit="saveVacancy(event)">
+                <input type="hidden" id="vacancyId">
+                <div class="form-group"><label>Название</label><input type="text" id="vacancyTitle" required></div>
+                <div class="form-group"><label>Иконка (FontAwesome класс)</label>
+                    <select id="vacancyIcon">
+                        <option value="fab fa-js">JavaScript</option><option value="fab fa-python">Python</option>
+                        <option value="fas fa-paint-brush">Дизайн</option><option value="fas fa-project-diagram">Менеджмент</option>
+                        <option value="fab fa-react">React</option><option value="fas fa-database">Базы данных</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Теги (через запятую)</label>
+                    <input type="text" id="vacancyTags" placeholder="React, Vue.js, TypeScript" required>
+                </div>
+                <div class="form-group"><label>Описание</label><textarea id="vacancyDescription" required rows="5"></textarea></div>
+                <div class="form-group"><label>Активна</label>
+                    <select id="vacancyActive"><option value="true">Да</option><option value="false">Нет</option></select>
+                </div>
+                <div style="display:flex;gap:12px;justify-content:flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeVacancyModal()">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="projectModalTitle">Добавить проект</h2>
+                <button onclick="closeProjectModal()" style="background:none;border:none;font-size:1.5rem;">&times;</button>
+            </div>
+            <form onsubmit="saveProject(event)">
+                <input type="hidden" id="projectId">
+                <div class="form-group"><label>Название проекта *</label><input type="text" id="projectName" required></div>
+                <div class="form-group"><label>Описание</label><textarea id="projectDescription" rows="4"></textarea></div>
+                <div class="form-group"><label>Стек технологий (через запятую)</label>
+                    <input type="text" id="projectTechStack" placeholder="React, Node.js, PostgreSQL, Docker" required>
+                </div>
+                <div class="form-group"><label>Ссылка на сайт</label>
+                    <input type="url" id="projectSiteUrl" placeholder="https://example.com">
+                </div>
+                <div class="form-group"><label>Ссылка на GitHub репозиторий</label>
+                    <input type="url" id="projectGithubUrl" placeholder="https://github.com/username/repo">
+                </div>
+                <div style="display:flex;gap:12px;justify-content:flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeProjectModal()">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2 id="profileModalTitle">Добавить профиль</h2>
+                <button onclick="closeProfileModal()" style="background:none;border:none;font-size:1.5rem;">&times;</button>
+            </div>
+            <form onsubmit="saveProfile(event)">
+                <input type="hidden" id="profileId">
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label>ФИО *</label>
+                        <input type="text" id="profileFullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="profileEmail">
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон</label>
+                        <input type="text" id="profilePhone">
+                    </div>
+                    <div class="form-group">
+                        <label>Telegram</label>
+                        <input type="text" id="profileTelegram" placeholder="@username">
+                    </div>
+                    <div class="form-group">
+                        <label>Роль *</label>
+                        <select id="profileRole" required>
+                            <option value="client">Клиент</option>
+                            <option value="employee">Сотрудник</option>
+                            <option value="partner">Партнёр</option>
+                            <option value="freelancer">Фрилансер</option>
+                            <option value="admin">Админ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Категория</label>
+                        <input type="text" id="profileCategory" placeholder="Клиент, Сотрудник, Партнёр...">
+                    </div>
+                    <div class="form-group">
+                        <label>Должность</label>
+                        <input type="text" id="profilePosition">
+                    </div>
+                    <div class="form-group">
+                        <label>Компания</label>
+                        <input type="text" id="profileCompany">
+                    </div>
+                    <div class="form-group">
+                        <label>Город</label>
+                        <input type="text" id="profileCity">
+                    </div>
+                    <div class="form-group">
+                        <label>Статус</label>
+                        <select id="profileStatus">
+                            <option value="active">🟢 Активный</option>
+                            <option value="inactive">⚪ Неактивный</option>
+                            <option value="blocked">🔴 Заблокирован</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Дата рождения</label>
+                        <input type="date" id="profileBirthDate">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Заметки</label>
+                    <textarea id="profileNotes" rows="3" placeholder="Дополнительная информация..."></textarea>
+                </div>
+                
+                <div style="display:flex;gap:12px;justify-content:flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeProfileModal()">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Document Modal -->
+    <div id="documentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="documentModalTitle">Добавить документ</h2>
+                <button onclick="closeDocumentModal()" style="background:none;border:none;font-size:1.5rem;">&times;</button>
+            </div>
+            <form onsubmit="saveDocument(event)">
+                <input type="hidden" id="documentId">
+                <div class="form-group"><label>Название</label><input type="text" id="documentTitle" required></div>
+                <div class="form-group"><label>Категория</label>
+                    <select id="documentCategory" required>
+                        <option value="tech-spec">Техническое задание</option>
+                        <option value="methodology">Методические материалы</option>
+                        <option value="guides">Инструкция</option>
+                        <option value="report">Отчёт</option>
+                        <option value="presentation">Презентация</option>
+                        <option value="certificate">Сертификат</option>
+                        <option value="manual">Руководство пользователя</option>
+                        <option value="template">Шаблон</option>
+                        <option value="standard">Стандарт / Регламент</option>
+                        <option value="order">Приказ</option>
+                        <option value="protocol">Протокол</option>
+                        <option value="other">Другое</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Описание</label><textarea id="documentDescription" required rows="4"></textarea></div>
+                <div class="form-group"><label>Имя файла</label>
+                    <input type="text" id="documentFileName" placeholder="Document-Name.pdf" required>
+                </div>
+                <div class="form-group"><label>URL файла</label>
+                    <input type="url" id="documentFileUrl" placeholder="https://raw.githubusercontent.com/.../file.pdf" required>
+                </div>
+                <div class="form-group"><label>Иконка (FontAwesome класс)</label>
+                    <select id="documentIcon">
+                        <option value="fas fa-file-pdf">PDF</option>
+                        <option value="fas fa-file-word">Word</option>
+                        <option value="fas fa-file-excel">Excel</option>
+                        <option value="fas fa-file-powerpoint">PowerPoint</option>
+                        <option value="fas fa-file-image">Изображение</option>
+                        <option value="fas fa-file-video">Видео</option>
+                        <option value="fas fa-file-audio">Аудио</option>
+                        <option value="fas fa-file-code">Код / API</option>
+                        <option value="fas fa-file-alt">Текстовый файл</option>
+                        <option value="fas fa-file-csv">CSV</option>
+                        <option value="fas fa-file-archive">Архив (ZIP/RAR)</option>
+                        <option value="fas fa-file-contract">Договор</option>
+                        <option value="fas fa-file-signature">Подписанный документ</option>
+                        <option value="fas fa-file-invoice">Отчёт / Инвойс</option>
+                        <option value="fas fa-file-medical">Медицинский документ</option>
+                        <option value="fas fa-file-alt">Другое</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Активен</label>
+                    <select id="documentActive"><option value="true">Да</option><option value="false">Нет</option></select>
+                </div>
+                <div style="display:flex;gap:12px;justify-content:flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="closeDocumentModal()">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Application View Modal -->
+    <div id="applicationModal" class="modal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h2>Детали отклика</h2>
+                <button onclick="closeApplicationModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button>
+            </div>
+            <div id="applicationDetails" style="padding: 8px 0;"></div>
+            <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 500; color: #0b3b5f;">Изменить статус</label>
+                <select id="applicationStatus" onchange="updateApplicationStatus()" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; font-family: inherit;">
+                    <option value="new">🟡 Новый</option>
+                    <option value="viewed">🔵 Просмотрен</option>
+                    <option value="contacted">🟢 Связались</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <script src="config.js"></script>
+    <script>
+        let currentApplicationId = null;
+        
+        if (window.location.pathname.includes('admin.html')) {
+            window.skipMaintenanceCheck = true;
+        }
+
+        // ============ РЕНДЕРИНГ ТАБЛИЦ ============
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function cleanDisplayText(text) {
+            return String(text || '').replace(/\*\*/g, '').replace(/\s{2,}/g, ' ').trim();
+        }
+        
+        function renderNewsTable(posts) {
+            const tbody = document.getElementById('newsTableBody');
+            if (!posts || posts.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Нет новостей</td></tr>';
+                return;
+            }
+            tbody.innerHTML = posts.map((post, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><strong>${escapeHtml(cleanDisplayText(post.title))}</strong></td>
+                    <td>${escapeHtml(post.category)}</td>
+                    <td>${post.date || ''}</td>
+                    <td>${post.views || 0}</td>
+                    <td>
+                        <div class="action-buttons-wrapper">
+                            <button class="action-btn edit" onclick="editNews(${post.id})">Ред</button>
+                            <button class="action-btn delete" onclick="deleteNews(${post.id})">Удл</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function renderVacanciesTable(vacancies) {
+            const tbody = document.getElementById('vacanciesTableBody');
+            if (!vacancies || vacancies.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="empty-state">Нет вакансий</td></tr>';
+                return;
+            }
+            tbody.innerHTML = vacancies.map((v, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><i class="${escapeHtml(v.icon)}"></i> <strong>${escapeHtml(cleanDisplayText(v.title))}</strong></td>
+                    <td>${(v.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</td>
+                    <td>${v.is_active ? '🟢 Активна' : '🔴 Неактивна'}</td>
+                    <td>
+                        <div class="action-buttons-wrapper">
+                            <button class="action-btn edit" onclick="editVacancy(${v.id})">Ред</button>
+                            <button class="action-btn delete" onclick="deleteVacancy(${v.id})">Удл</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function renderProjectsTable(projects) {
+            const tbody = document.getElementById('projectsTableBody');
+            if (!projects || projects.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">Нет проектов</td></tr>';
+                return;
+            }
+            tbody.innerHTML = projects.map((project, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><strong>${escapeHtml(cleanDisplayText(project.name))}</strong><br>
+                        <small style="color:#666;">${escapeHtml(project.description?.substring(0, 50))}${project.description?.length > 50 ? '...' : ''}</small>
+                    </td>
+                    <td><div class="tech-stack">${(project.tech_stack || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div></td>
+                    <td>
+                        ${project.site_url ? `<a href="${escapeHtml(project.site_url)}" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i> Сайт</a>` : '—'}
+                    </td>
+                    <td>
+                        ${project.github_url ? `<a href="${escapeHtml(project.github_url)}" target="_blank" class="project-link"><i class="fab fa-github"></i> GitHub</a>` : '—'}
+                    </td>
+                    <td>
+                        <div class="action-buttons-wrapper">
+                            <button class="action-btn edit" onclick="editProject(${project.id})">Ред</button>
+                            <button class="action-btn delete" onclick="deleteProject(${project.id})">Удл</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function getStatusText(status) {
+            const statuses = { 'new': '🟡 Новый', 'viewed': '🔵 Просмотрен', 'contacted': '🟢 Связались' };
+            return statuses[status] || status;
+        }
+        
+        function getDocumentCategoryName(category) {
+            const categories = {
+                'tech-spec': 'Техническое задание',
+                'methodology': 'Методические материалы',
+                'guides': 'Инструкция',
+                'report': 'Отчёт',
+                'presentation': 'Презентация',
+                'certificate': 'Сертификат',
+                'manual': 'Руководство пользователя',
+                'template': 'Шаблон',
+                'standard': 'Стандарт / Регламент',
+                'order': 'Приказ',
+                'protocol': 'Протокол',
+                'other': 'Другое'
+            };
+            return categories[category] || category;
+        }
+        
+        function renderDocumentsTable(documents) {
+            const tbody = document.getElementById('documentsTableBody');
+            if (!tbody) return;
+            if (!documents || documents.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Нет документов</td></tr>';
+                return;
+            }
+            tbody.innerHTML = documents.map((doc, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><i class="${escapeHtml(doc.icon)}"></i> <strong>${escapeHtml(cleanDisplayText(doc.title))}</strong></td>
+                    <td>${escapeHtml(getDocumentCategoryName(doc.category))}</td>
+                    <td><a href="${escapeHtml(doc.file_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(doc.file_name)}</a></td>
+                    <td>${doc.is_active ? '🟢 Активен' : '🔴 Скрыт'}</td>
+                    <td>${doc.view_count || 0}</td>
+                    <td>${doc.download_count || 0}</td>
+                    <td>
+                        <div class="action-buttons-wrapper">
+                            <button class="action-btn edit" onclick="editDocument(${doc.id})">Ред</button>
+                            <button class="action-btn delete" onclick="deleteDocument(${doc.id})">Удл</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function renderApplicationsTable(applications) {
+            const tbody = document.getElementById('applicationsTableBody');
+            if (!applications || applications.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Нет откликов</td></tr>';
+                return;
+            }
+            tbody.innerHTML = applications.map((app, index) => `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td><strong>${escapeHtml(cleanDisplayText(app.vacancy_title))}</strong></td>
+                    <td>${escapeHtml(app.name)}</td>
+                    <td>${escapeHtml(app.email)}</td>
+                    <td><span class="status-badge status-${app.status}">${getStatusText(app.status)}</span></td>
+                    <td>${new Date(app.created_at).toLocaleDateString('ru-RU')}</td>
+                    <td>
+                        <div class="action-buttons-wrapper">
+                            <button class="action-btn view" onclick="viewApplication(${app.id})">Просмотр</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // ============ АУТЕНТИФИКАЦИЯ ============
+        
+        async function login() {
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('adminEmail', email);
+                    checkSession();
+                } else {
+                    document.getElementById('loginError').textContent = data.error || 'Ошибка входа';
+                }
+            } catch (error) {
+                document.getElementById('loginError').textContent = 'Ошибка подключения к серверу';
+            }
+        }
+        
+        function logout() {
+            localStorage.removeItem('adminEmail');
+            fetch(`${API_BASE_URL}/admin/logout`, { method: 'POST' })
+                .finally(() => checkSession());
+        }
+        
+        async function checkSession() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/session`, { cache: 'no-store' });
+                if (!response.ok) throw new Error('Session expired');
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadNews();
+                loadVacancies();
+                loadApplications();
+                loadProjects();
+                loadDocuments();
+            } catch (error) {
+                localStorage.removeItem('adminEmail');
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('adminPanel').style.display = 'none';
+            }
+        }
+        
+        // ============ НОВОСТИ ============
+        
+        async function loadNews() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts`);
+                const posts = await response.json();
+                renderNewsTable(posts);
+            } catch (error) {
+                console.error('Ошибка загрузки новостей:', error);
+                document.getElementById('newsTableBody').innerHTML = '<tr><td colspan="6" class="empty-state">Ошибка загрузки</td></tr>';
+            }
+        }
+        
+        async function saveNews(event) {
+            event.preventDefault();
+            const id = document.getElementById('newsId').value;
+            const today = new Date();
+            const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+            const dateStr = `${today.getDate()} ${months[today.getMonth()]} ${today.getFullYear()}`;
+            
+            const postData = {
+                title: document.getElementById('newsTitle').value,
+                category: document.getElementById('newsCategory').value,
+                date: dateStr,
+                excerpt: document.getElementById('newsExcerpt').value,
+                content: document.getElementById('newsContent').value,
+                image_url: document.getElementById('newsImageUrl').value || null
+            };
+            
+            try {
+                let response;
+                if (id) {
+                    response = await fetch(`${API_BASE_URL}/posts/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(postData)
+                    });
+                } else {
+                    response = await fetch(`${API_BASE_URL}/posts`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(postData)
+                    });
+                }
+                
+                if (response.ok) {
+                    closeNewsModal();
+                    loadNews();
+                } else {
+                    const error = await response.json();
+                    alert('Ошибка: ' + error.error);
+                }
+            } catch (error) {
+                alert('Ошибка сохранения: ' + error.message);
+            }
+        }
+        
+        async function editNews(id) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts/${id}`);
+                const post = await response.json();
+                
+                document.getElementById('newsId').value = post.id;
+                document.getElementById('newsTitle').value = post.title;
+                document.getElementById('newsCategory').value = post.category;
+                document.getElementById('newsImageUrl').value = post.image_url || '';
+                document.getElementById('newsExcerpt').value = post.excerpt;
+                document.getElementById('newsContent').value = post.content;
+                document.getElementById('newsModalTitle').textContent = 'Редактировать новость';
+                document.getElementById('newsModal').classList.add('active');
+            } catch (error) {
+                alert('Ошибка загрузки: ' + error.message);
+            }
+        }
+        
+        async function deleteNews(id) {
+            if (confirm('Удалить новость?')) {
+                try {
+                    await fetch(`${API_BASE_URL}/posts/${id}`, { method: 'DELETE' });
+                    loadNews();
+                } catch (error) {
+                    alert('Ошибка удаления: ' + error.message);
+                }
+            }
+        }
+        
+        // ============ ВАКАНСИИ ============
+        
+        async function loadVacancies() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/vacancies`);
+                const vacancies = await response.json();
+                renderVacanciesTable(vacancies);
+            } catch (error) {
+                console.error('Ошибка загрузки вакансий:', error);
+                document.getElementById('vacanciesTableBody').innerHTML = '<tr><td colspan="5" class="empty-state">Ошибка загрузки</td></tr>';
+            }
+        }
+        
+        async function saveVacancy(event) {
+            event.preventDefault();
+            const id = document.getElementById('vacancyId').value;
+            const tags = document.getElementById('vacancyTags').value.split(',').map(t => t.trim()).filter(t => t);
+            
+            const vacancyData = {
+                title: document.getElementById('vacancyTitle').value,
+                icon: document.getElementById('vacancyIcon').value,
+                tags: tags,
+                description: document.getElementById('vacancyDescription').value,
+                is_active: document.getElementById('vacancyActive').value === 'true'
+            };
+            
+            try {
+                let response;
+                if (id) {
+                    response = await fetch(`${API_BASE_URL}/vacancies/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(vacancyData)
+                    });
+                } else {
+                    response = await fetch(`${API_BASE_URL}/vacancies`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(vacancyData)
+                    });
+                }
+                
+                if (response.ok) {
+                    closeVacancyModal();
+                    loadVacancies();
+                } else {
+                    const error = await response.json();
+                    alert('Ошибка: ' + error.error);
+                }
+            } catch (error) {
+                alert('Ошибка сохранения: ' + error.message);
+            }
+        }   
+        
+        async function editVacancy(id) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/vacancies/${id}`);
+                const v = await response.json();
+                
+                document.getElementById('vacancyId').value = v.id;
+                document.getElementById('vacancyTitle').value = v.title || '';
+                document.getElementById('vacancyIcon').value = v.icon || 'fab fa-js';
+                document.getElementById('vacancyTags').value = (v.tags || []).join(', ');
+                document.getElementById('vacancyDescription').value = v.description || '';
+                document.getElementById('vacancyActive').value = v.is_active ? 'true' : 'false';
+                document.getElementById('vacancyModalTitle').textContent = 'Редактировать вакансию';
+                document.getElementById('vacancyModal').classList.add('active');
+            } catch (error) {
+                alert('Ошибка загрузки: ' + error.message);
+            }
+        }
+        
+        async function deleteVacancy(id) {
+            if (confirm('Удалить вакансию?')) {
+                try {
+                    await fetch(`${API_BASE_URL}/vacancies/${id}`, { method: 'DELETE' });
+                    loadVacancies();
+                } catch (error) {
+                    alert('Ошибка удаления: ' + error.message);
+                }
+            }
+        }
+        
+        // ============ ДОКУМЕНТЫ ============
+        
+        async function loadDocuments() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/documents`);
+                const documents = await response.json();
+                renderDocumentsTable(documents);
+            } catch (error) {
+                console.error('Ошибка загрузки документов:', error);
+                const tbody = document.getElementById('documentsTableBody');
+                if (tbody) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Ошибка загрузки</td></tr>';
+                }
+            }
+        }
+        
+        async function saveDocument(event) {
+            event.preventDefault();
+            const id = document.getElementById('documentId').value;
+            
+            const documentData = {
+                title: document.getElementById('documentTitle').value,
+                category: document.getElementById('documentCategory').value,
+                description: document.getElementById('documentDescription').value,
+                file_name: document.getElementById('documentFileName').value,
+                file_url: document.getElementById('documentFileUrl').value,
+                icon: document.getElementById('documentIcon').value,
+                is_active: document.getElementById('documentActive').value === 'true'
+            };
+            
+            try {
+                let response;
+                if (id) {
+                    response = await fetch(`${API_BASE_URL}/documents/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(documentData)
+                    });
+                } else {
+                    response = await fetch(`${API_BASE_URL}/documents`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(documentData)
+                    });
+                }
+                
+                if (response.ok) {
+                    closeDocumentModal();
+                    loadDocuments();
+                } else {
+                    const error = await response.json();
+                    alert('Ошибка: ' + error.error);
+                }
+            } catch (error) {
+                alert('Ошибка сохранения: ' + error.message);
+            }
+        }
+        
+        async function editDocument(id) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/documents`);
+                const documents = await response.json();
+                const doc = documents.find(item => item.id === id);
+                if (!doc) {
+                    alert('Документ не найден');
+                    return;
+                }
+                
+                document.getElementById('documentId').value = doc.id;
+                document.getElementById('documentTitle').value = doc.title || '';
+                document.getElementById('documentCategory').value = doc.category || 'tech-spec';
+                document.getElementById('documentDescription').value = doc.description || '';
+                document.getElementById('documentFileName').value = doc.file_name || '';
+                document.getElementById('documentFileUrl').value = doc.file_url || '';
+                document.getElementById('documentIcon').value = doc.icon || 'fas fa-file-pdf';
+                document.getElementById('documentActive').value = doc.is_active ? 'true' : 'false';
+                document.getElementById('documentModalTitle').textContent = 'Редактировать документ';
+                document.getElementById('documentModal').classList.add('active');
+            } catch (error) {
+                alert('Ошибка загрузки: ' + error.message);
+            }
+        }
+        
+        async function deleteDocument(id) {
+            if (confirm('Удалить документ?')) {
+                try {
+                    await fetch(`${API_BASE_URL}/documents/${id}`, { method: 'DELETE' });
+                    loadDocuments();
+                } catch (error) {
+                    alert('Ошибка удаления: ' + error.message);
+                }
+            }
+        }
+        
+        // ============ ПРОЕКТЫ ============
+        
+        async function loadProjects() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects`);
+                const projects = await response.json();
+                renderProjectsTable(projects);
+            } catch (error) {
+                console.error('Ошибка загрузки проектов:', error);
+                document.getElementById('projectsTableBody').innerHTML = '<tr><td colspan="6" class="empty-state">Ошибка загрузки проектов</td></tr>';
+            }
+        }
+        
+        async function saveProject(event) {
+            event.preventDefault();
+            const id = document.getElementById('projectId').value;
+            const techStack = document.getElementById('projectTechStack').value.split(',').map(t => t.trim()).filter(t => t);
+            
+            const projectData = {
+                name: document.getElementById('projectName').value,
+                description: document.getElementById('projectDescription').value,
+                tech_stack: techStack,
+                site_url: document.getElementById('projectSiteUrl').value || null,
+                github_url: document.getElementById('projectGithubUrl').value || null
+            };
+            
+            try {
+                let response;
+                if (id) {
+                    response = await fetch(`${API_BASE_URL}/projects/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(projectData)
+                    });
+                } else {
+                    response = await fetch(`${API_BASE_URL}/projects`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(projectData)
+                    });
+                }
+                
+                if (response.ok) {
+                    closeProjectModal();
+                    loadProjects();
+                } else {
+                    const error = await response.json();
+                    alert('Ошибка: ' + error.error);
+                }
+            } catch (error) {
+                alert('Ошибка сохранения: ' + error.message);
+            }
+        }
+        
+        async function editProject(id) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/projects/${id}`);
+                const project = await response.json();
+                
+                document.getElementById('projectId').value = project.id;
+                document.getElementById('projectName').value = project.name;
+                document.getElementById('projectDescription').value = project.description || '';
+                document.getElementById('projectTechStack').value = (project.tech_stack || []).join(', ');
+                document.getElementById('projectSiteUrl').value = project.site_url || '';
+                document.getElementById('projectGithubUrl').value = project.github_url || '';
+                document.getElementById('projectModalTitle').textContent = 'Редактировать проект';
+                document.getElementById('projectModal').classList.add('active');
+            } catch (error) {
+                alert('Ошибка загрузки: ' + error.message);
+            }
+        }
+        
+        async function deleteProject(id) {
+            if (confirm('Удалить проект?')) {
+                try {
+                    await fetch(`${API_BASE_URL}/projects/${id}`, { method: 'DELETE' });
+                    loadProjects();
+                } catch (error) {
+                    alert('Ошибка удаления: ' + error.message);
+                }
+            }
+        }
+        
+        // ============ ОТКЛИКИ ============
+        
+        async function loadApplications() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/applications`);
+                const applications = await response.json();
+                renderApplicationsTable(applications);
+            } catch (error) {
+                console.error('Ошибка загрузки откликов:', error);
+                document.getElementById('applicationsTableBody').innerHTML = '<tr><td colspan="7" class="empty-state">Ошибка загрузки</td></tr>';
+            }
+        }
+        
+        async function viewApplication(id) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/applications`);
+                const applications = await response.json();
+                const app = applications.find(a => a.id === id);
+                
+                if (app) {
+                    currentApplicationId = id;
+                    document.getElementById('applicationDetails').innerHTML = `
+                        <div style="display: grid; gap: 16px;">
+                            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span style="font-weight: 600; color: #4a5b6e; font-size: 0.9rem;">Вакансия:</span>
+                                <span style="color: #0a1c2f; font-size: 0.95rem;">${escapeHtml(app.vacancy_title)}</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span style="font-weight: 600; color: #4a5b6e; font-size: 0.9rem;">Имя:</span>
+                                <span style="color: #0a1c2f; font-size: 0.95rem;">${escapeHtml(app.name)}</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span style="font-weight: 600; color: #4a5b6e; font-size: 0.9rem;">Email:</span>
+                                <span style="color: #0a1c2f; font-size: 0.95rem;">${escapeHtml(app.email)}</span>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span style="font-weight: 600; color: #4a5b6e; font-size: 0.9rem;">Telegram:</span>
+                                <span style="color: #0a1c2f; font-size: 0.95rem;">${escapeHtml(app.contact)}</span>
+                            </div>
+                            ${app.portfolio ? `
+                            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span style="font-weight: 600; color: #4a5b6e; font-size: 0.9rem;">Портфолио:</span>
+                                <span style="color: #0a1c2f; font-size: 0.95rem;"><a href="${app.portfolio}" target="_blank" style="color: #3b9eff; text-decoration: none;">${escapeHtml(app.portfolio)}</a></span>
+                            </div>
+                            ` : ''}
+                            <div style="display: grid; grid-template-columns: 140px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span style="font-weight: 600; color: #4a5b6e; font-size: 0.9rem;">Дата:</span>
+                                <span style="color: #0a1c2f; font-size: 0.95rem;">${new Date(app.created_at).toLocaleString('ru-RU')}</span>
+                            </div>
+                            <div style="padding: 12px 0;">
+                                <span style="font-weight: 600; color: #4a5b6e; font-size: 0.9rem; display: block; margin-bottom: 8px;">Сообщение:</span>
+                                <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border-left: 3px solid #3b9eff; color: #0a1c2f; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(app.message)}</div>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('applicationStatus').value = app.status;
+                    document.getElementById('applicationModal').classList.add('active');
+                }
+            } catch (error) {
+                alert('Ошибка загрузки: ' + error.message);
+            }
+        }
+        
+        async function updateApplicationStatus() {
+            const newStatus = document.getElementById('applicationStatus').value;
+            try {
+                await fetch(`${API_BASE_URL}/admin/applications/${currentApplicationId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                loadApplications();
+                closeApplicationModal();
+            } catch (error) {
+                alert('Ошибка обновления: ' + error.message);
+            }
+        }
+        
+// ============ ПРОФИЛИ ============
+
+let currentFilters = {
+    role: '',
+    status: '',
+    category: ''
+};
+
+async function loadProfiles() {
+    try {
+        let url = `${API_BASE_URL}/profiles`;
+        const params = [];
+        
+        if (currentFilters.role) {
+            params.push(`role=${encodeURIComponent(currentFilters.role)}`);
+        }
+        if (currentFilters.status) {
+            params.push(`status=${encodeURIComponent(currentFilters.status)}`);
+        }
+        if (currentFilters.category) {
+            params.push(`category=${encodeURIComponent(currentFilters.category)}`);
+        }
+        
+        if (params.length > 0) {
+            url += '?' + params.join('&');
+        }
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP ${response.status}: ${errorText}`);
+        }
+        
+        const profiles = await response.json();
+        
+        if (Array.isArray(profiles)) {
+            renderProfilesTable(profiles);
+        } else {
+            console.error('Получен не массив:', profiles);
+            renderProfilesTable([]);
+        }
+    } catch (error) {
+        console.error('Ошибка загрузки профилей:', error);
+        document.getElementById('profilesTableBody').innerHTML = `<tr><td colspan="7" class="empty-state">Ошибка: ${error.message}</td></tr>`;
+    }
+}
+
+async function loadCategoriesStats() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/profiles/stats/summary`);
+        
+        if (!response.ok) {
+            throw new Error('Ошибка загрузки статистики');
+        }
+        
+        const data = await response.json();
+        const categories = data.categories || [];
+        
+        if (categories.length === 0) {
+            document.getElementById('categoriesList').innerHTML = '<div style="padding: 16px; text-align: center; color: #999;">Нет категорий</div>';
+            return;
+        }
+        
+        const categoriesHtml = categories.map(cat => `
+            <div class="category-item ${currentFilters.category === cat.category ? 'active' : ''}" 
+                 onclick="filterByCategory('${cat.category.replace(/'/g, "\\'")}')">
+                <span><i class="fas fa-folder"></i> ${escapeHtml(cat.category || 'Без категории')}</span>
+                <span class="category-count">${cat.count}</span>
+            </div>
+        `).join('');
+        
+        document.getElementById('categoriesList').innerHTML = categoriesHtml;
+    } catch (error) {
+        console.error('Ошибка загрузки категорий:', error);
+        document.getElementById('categoriesList').innerHTML = '<div style="padding: 16px; text-align: center; color: red;">❌ Ошибка загрузки</div>';
+    }
+}
+
+function filterProfiles() {
+    currentFilters.role = document.getElementById('filterRole').value;
+    currentFilters.status = document.getElementById('filterStatus').value;
+    currentFilters.category = '';
+    loadProfiles();
+    loadCategoriesStats();
+}
+
+function filterByCategory(category) {
+    currentFilters.category = category;
+    currentFilters.role = '';
+    currentFilters.status = '';
+    
+    const roleSelect = document.getElementById('filterRole');
+    const statusSelect = document.getElementById('filterStatus');
+    if (roleSelect) roleSelect.value = '';
+    if (statusSelect) statusSelect.value = '';
+    
+    loadProfiles();
+    loadCategoriesStats();
+}
+
+function resetFilters() {
+    currentFilters = { role: '', status: '', category: '' };
+    const roleSelect = document.getElementById('filterRole');
+    const statusSelect = document.getElementById('filterStatus');
+    if (roleSelect) roleSelect.value = '';
+    if (statusSelect) statusSelect.value = '';
+    loadProfiles();
+    loadCategoriesStats();
+}
+
+function renderProfilesTable(profiles) {
+    const tbody = document.getElementById('profilesTableBody');
+    
+    if (!profiles || !Array.isArray(profiles) || profiles.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">📭 Нет профилей. Нажмите "Добавить профиль"</td></tr>';
+        return;
+    }
+    
+    const getRoleIcon = (role) => {
+        const icons = { employee: '👔', client: '🤝', partner: '🤝', freelancer: '💻', admin: '⚙️' };
+        return icons[role] || '👤';
+    };
+    
+    const getRoleText = (role) => {
+        const texts = { employee: 'Сотрудник', client: 'Клиент', partner: 'Партнёр', freelancer: 'Фрилансер', admin: 'Админ' };
+        return texts[role] || role;
+    };
+    
+    const getStatusBadge = (status) => {
+        const badges = {
+            active: '<span class="status-badge-large status-badge-active">Активный</span>',
+            inactive: '<span class="status-badge-large status-badge-inactive">Неактивный</span>',
+            blocked: '<span class="status-badge-large status-badge-blocked">Заблокирован</span>'
+        };
+        return badges[status] || status;
+    };
+    
+    tbody.innerHTML = profiles.map((profile, index) => {
+        let contactHtml = '<div class="profile-contact">';
+        if (profile.email) contactHtml += `<div><i class="fas fa-envelope"></i> ${escapeHtml(profile.email)}</div>`;
+        if (profile.phone) contactHtml += `<div><i class="fas fa-phone"></i> ${escapeHtml(profile.phone)}</div>`;
+        if (profile.telegram) contactHtml += `<div><i class="fab fa-telegram"></i> ${escapeHtml(profile.telegram)}</div>`;
+        if (profile.city) contactHtml += `<div><i class="fas fa-map-marker-alt"></i> ${escapeHtml(profile.city)}</div>`;
+        contactHtml += '</div>';
+        
+        if (contactHtml === '<div class="profile-contact"></div>') contactHtml = '—';
+        
+        return `
+            <tr>
+                <td style="vertical-align: middle; font-weight: 600;">${index + 1}</td>
+                <td style="vertical-align: middle;">
+                    <strong style="font-size: 1rem;">${escapeHtml(cleanDisplayText(profile.full_name))}</strong><br>
+                    <span style="color: #666; font-size: 0.85rem;">${profile.position || ''} ${profile.company ? '— ' + escapeHtml(profile.company) : ''}</span>
+                 </td>
+                <td style="vertical-align: middle;">${getRoleIcon(profile.role)} ${getRoleText(profile.role)}</td>
+                <td style="vertical-align: middle;"><span class="tag">${escapeHtml(profile.category || '—')}</span></td>
+                <td style="vertical-align: middle;">${contactHtml}</td>
+                <td style="vertical-align: middle;">${getStatusBadge(profile.status)}</td>
+                <td style="vertical-align: middle;">
+                    <button class="action-btn edit" onclick="editProfile(${profile.id})">
+                        <i class="fas fa-edit"></i> Ред
+                    </button>
+                    <button class="action-btn delete" onclick="deleteProfile(${profile.id})">
+                        <i class="fas fa-trash"></i> Удл
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+async function saveProfile(event) {
+    event.preventDefault();
+    const id = document.getElementById('profileId').value;
+    
+    const profileData = {
+        full_name: document.getElementById('profileFullName').value,
+        email: document.getElementById('profileEmail').value || null,
+        phone: document.getElementById('profilePhone').value || null,
+        telegram: document.getElementById('profileTelegram').value || null,
+        role: document.getElementById('profileRole').value,
+        category: document.getElementById('profileCategory').value || null,
+        position: document.getElementById('profilePosition').value || null,
+        company: document.getElementById('profileCompany').value || null,
+        city: document.getElementById('profileCity').value || null,
+        status: document.getElementById('profileStatus').value,
+        notes: document.getElementById('profileNotes').value || null,
+        birth_date: document.getElementById('profileBirthDate').value || null
+    };
+    
+    try {
+        let response;
+        if (id) {
+            response = await fetch(`${API_BASE_URL}/profiles/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(profileData)
+            });
+        } else {
+            response = await fetch(`${API_BASE_URL}/profiles`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(profileData)
+            });
+        }
+        
+        if (response.ok) {
+            closeProfileModal();
+            loadProfiles();
+            loadCategoriesStats();
+        } else {
+            const error = await response.json();
+            alert('Ошибка: ' + error.error);
+        }
+    } catch (error) {
+        alert('Ошибка сохранения: ' + error.message);
+    }
+}
+
+async function editProfile(id) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/profiles/${id}`);
+        const profile = await response.json();
+        
+        document.getElementById('profileId').value = profile.id;
+        document.getElementById('profileFullName').value = profile.full_name;
+        document.getElementById('profileEmail').value = profile.email || '';
+        document.getElementById('profilePhone').value = profile.phone || '';
+        document.getElementById('profileTelegram').value = profile.telegram || '';
+        document.getElementById('profileRole').value = profile.role;
+        document.getElementById('profileCategory').value = profile.category || '';
+        document.getElementById('profilePosition').value = profile.position || '';
+        document.getElementById('profileCompany').value = profile.company || '';
+        document.getElementById('profileCity').value = profile.city || '';
+        document.getElementById('profileStatus').value = profile.status;
+        document.getElementById('profileNotes').value = profile.notes || '';
+        document.getElementById('profileBirthDate').value = profile.birth_date || '';
+        document.getElementById('profileModalTitle').textContent = 'Редактировать профиль';
+        document.getElementById('profileModal').classList.add('active');
+    } catch (error) {
+        alert('Ошибка загрузки: ' + error.message);
+    }
+}
+
+async function deleteProfile(id) {
+    if (confirm('Удалить профиль?')) {
+        try {
+            await fetch(`${API_BASE_URL}/profiles/${id}`, { method: 'DELETE' });
+            loadProfiles();
+            loadCategoriesStats();
+        } catch (error) {
+            alert('Ошибка удаления: ' + error.message);
+        }
+    }
+}
+
+// ============ СТАТУСЫ ПРОЕКТОВ ============
+
+function getStatusBadge(status, manualStatus, statusType, httpStatus) {
+    const statusMap = {
+        'online': { icon: '✅', text: 'Онлайн', class: 'status-online', color: '#28a745' },
+        'offline': { icon: '🔴', text: 'Офлайн', class: 'status-offline', color: '#dc3545' },
+        'error': { icon: '⚠️', text: 'Ошибка', class: 'status-error', color: '#ffc107' },
+        'redirect': { icon: '🔄', text: 'Редирект', class: 'status-redirect', color: '#17a2b8' },
+        'maintenance': { icon: '🔧', text: 'Тех. обслуживание', class: 'status-maintenance', color: '#6c757d' },
+        'completed': { icon: '✅', text: 'Завершён', class: 'status-completed', color: '#20c997' },
+        'development': { icon: '🚧', text: 'В разработке', class: 'status-development', color: '#fd7e14' }
+    };
+    
+    let displayStatus = statusMap[status] || { icon: '❓', text: status, class: 'status-unknown', color: '#6c757d' };
+    
+    // Если ручной статус
+    if (statusType === 'manual' && manualStatus) {
+        return `<span style="display: inline-block; padding: 4px 12px; border-radius: 20px; background: #e6f7ff; color: #0b3b5f; font-size: 0.75rem; font-weight: 600;">
+            <i class="fas fa-hand-pointer"></i> ${escapeHtml(manualStatus)}
+        </span>`;
+    }
+    
+    // Автоматический статус с индикатором HTTP
+    let httpInfo = '';
+    if (httpStatus) {
+        httpInfo = `<span style="font-size: 0.65rem; display: block; opacity: 0.7;">HTTP ${httpStatus}</span>`;
+    }
+    
+    return `
+        <div style="display: inline-block; text-align: center;">
+            <span style="display: inline-block; padding: 4px 12px; border-radius: 20px; background: ${displayStatus.color}20; color: ${displayStatus.color}; font-weight: 600; font-size: 0.75rem;">
+                ${displayStatus.icon} ${displayStatus.text}
+            </span>
+            ${httpInfo}
+        </div>
+    `;
+}
+
+function renderProjectsTable(projects) {
+    const tbody = document.getElementById('projectsTableBody');
+    if (!projects || projects.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Нет проектов</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = projects.map((project, index) => {
+        const statusBadge = getStatusBadge(
+            project.status, 
+            project.manual_status, 
+            project.status_type,
+            project.http_status
+        );
+        
+        const lastChecked = project.last_checked 
+            ? new Date(project.last_checked).toLocaleString('ru-RU')
+            : '—';
+        
+        const statusTypeIcon = project.status_type === 'manual' 
+            ? '<i class="fas fa-hand-pointer" style="color: #ffc107;" title="Ручной статус"></i>'
+            : '<i class="fas fa-robot" style="color: #3b9eff;" title="Авто-статус"></i>';
+        
+        return `
+            <tr>
+                <td>${index + 1}</td>
+                <td>
+                    <strong>${escapeHtml(cleanDisplayText(project.name))}</strong><br>
+                    <small style="color:#666;">${escapeHtml(project.description?.substring(0, 50))}${project.description?.length > 50 ? '...' : ''}</small>
+                </td>
+                <td><div class="tech-stack">${(project.tech_stack || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div></td>
+                <td>
+                    ${project.site_url ? `<a href="${escapeHtml(project.site_url)}" target="_blank" class="project-link"><i class="fas fa-external-link-alt"></i> Сайт</a>` : '—'}
+                    ${project.github_url ? `<br><a href="${escapeHtml(project.github_url)}" target="_blank" class="project-link"><i class="fab fa-github"></i> GitHub</a>` : ''}
+                </td>
+                <td style="text-align: center;">
+                    ${statusBadge}
+                    <div style="font-size: 0.7rem; margin-top: 4px;">
+                        ${statusTypeIcon}
+                    </div>
+                </td>
+                <td style="font-size: 0.8rem; color: #666;">
+                    ${lastChecked}
+                    ${project.status_type === 'auto' ? `<button class="action-btn" onclick="checkSingleProject(${project.id})" style="margin-top: 4px; font-size: 0.7rem;">🔄</button>` : ''}
+                </td>
+                <td>
+                    <button class="action-btn edit" onclick="editProject(${project.id})">Ред</button>
+                    <button class="action-btn" onclick="openStatusModal(${project.id})" style="background: #17a2b8;">Статус</button>
+                    <button class="action-btn delete" onclick="deleteProject(${project.id})">Удл</button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+// Открыть модалку управления статусом
+async function openStatusModal(projectId) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/projects/${projectId}`);
+        const project = await response.json();
+        
+        const modalContent = document.getElementById('statusModalContent');
+        modalContent.innerHTML = `
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: var(--primary);">${escapeHtml(project.name)}</h3>
+                <p style="color: #666;">Текущий статус: ${getStatusBadge(project.status, project.manual_status, project.status_type, project.http_status)}</p>
+                ${project.site_url ? `<p><i class="fas fa-link"></i> <a href="${escapeHtml(project.site_url)}" target="_blank">${escapeHtml(project.site_url)}</a></p>` : ''}
+            </div>
+            
+            <div style="margin-bottom: 24px;">
+                <h4>Ручной статус</h4>
+                <select id="manualStatusSelect" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; margin-bottom: 12px;">
+                    <option value="">— Выберите статус —</option>
+                    <option value="Онлайн (ручной)">✅ Онлайн (ручной)</option>
+                    <option value="Офлайн (ручной)">🔴 Офлайн (ручной)</option>
+                    <option value="Техническое обслуживание">🔧 Техническое обслуживание</option>
+                    <option value="Завершён">✅ Завершён</option>
+                    <option value="В разработке">🚧 В разработке</option>
+                    <option value="Тестирование">🧪 Тестирование</option>
+                    <option value="Архивирован">📦 Архивирован</option>
+                </select>
+                <input type="text" id="customManualStatus" placeholder="Или введите свой статус" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd;">
+                <p style="font-size: 0.75rem; color: #666; margin-top: 8px;">
+                    <i class="fas fa-info-circle"></i> Выберите статус из списка или напишите свой
+                </p>
+            </div>
+            
+            <div style="margin-bottom: 24px;">
+                <h4>Автоматическая проверка</h4>
+                <button class="btn btn-outline" onclick="checkSingleProject(${project.id})" style="width: 100%; margin-bottom: 8px;">
+                    <i class="fas fa-sync-alt"></i> Проверить сейчас
+                </button>
+                <button class="btn btn-outline" onclick="setAutoStatus(${project.id})" style="width: 100%;">
+                    <i class="fas fa-robot"></i> Вернуть на авто-статус
+                </button>
+            </div>
+            
+            <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                <button class="btn btn-outline" onclick="closeStatusModal()">Отмена</button>
+                <button class="btn btn-primary" onclick="saveManualStatus(${project.id})">Сохранить ручной статус</button>
+            </div>
+        `;
+        
+        document.getElementById('statusModal').classList.add('active');
+    } catch (error) {
+        alert('Ошибка загрузки: ' + error.message);
+    }
+}
+
+function closeStatusModal() {
+    document.getElementById('statusModal').classList.remove('active');
+}
+
+async function saveManualStatus(projectId) {
+    const selectStatus = document.getElementById('manualStatusSelect').value;
+    const customStatus = document.getElementById('customManualStatus').value;
+    
+    let manualStatus = customStatus || selectStatus;
+    
+    if (!manualStatus) {
+        alert('Выберите или введите статус');
+        return;
+    }
+    
+    // Определяем internal status для отображения
+    let internalStatus = 'maintenance';
+    if (manualStatus.includes('Онлайн') || manualStatus.includes('онлайн')) internalStatus = 'online';
+    else if (manualStatus.includes('Офлайн') || manualStatus.includes('офлайн')) internalStatus = 'offline';
+    else if (manualStatus.includes('Завершён')) internalStatus = 'completed';
+    else if (manualStatus.includes('Разработке')) internalStatus = 'development';
+    else if (manualStatus.includes('Техническое')) internalStatus = 'maintenance';
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/projects/${projectId}/manual-status`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ manual_status: manualStatus, status: internalStatus })
+        });
+        
+        if (response.ok) {
+            closeStatusModal();
+            loadProjects();
+            showToast('Статус обновлён!', 'success');
+        } else {
+            const error = await response.json();
+            alert('Ошибка: ' + error.error);
+        }
+    } catch (error) {
+        alert('Ошибка: ' + error.message);
+    }
+}
+
+async function setAutoStatus(projectId) {
+    if (!confirm('Вернуть проект на автоматическое определение статуса?')) return;
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/projects/${projectId}/auto-status`, {
+            method: 'POST'
+        });
+        
+        if (response.ok) {
+            closeStatusModal();
+            loadProjects();
+            showToast('Проект переведён на авто-статус', 'success');
+        } else {
+            const error = await response.json();
+            alert('Ошибка: ' + error.error);
+        }
+    } catch (error) {
+        alert('Ошибка: ' + error.message);
+    }
+}
+
+async function checkAllProjects() {
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Проверка...';
+    btn.disabled = true;
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/projects/check-all`, {
+            method: 'POST'
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showToast(`✅ ${result.message}`, 'success');
+            loadProjects();
+        } else {
+            showToast('❌ Ошибка проверки', 'error');
+        }
+    } catch (error) {
+        showToast('❌ Ошибка: ' + error.message, 'error');
+    } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }
+}
+
+async function checkSingleProject(projectId) {
+    showToast('🔄 Проверка проекта...', 'info');
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/projects/${projectId}/check`, {
+            method: 'POST'
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showToast(`✅ Проект "${result.project.name}": ${result.project.status} (HTTP ${result.project.http_status || '?'})`, 'success');
+            loadProjects();
+            if (typeof closeStatusModal === 'function') closeStatusModal();
+        } else {
+            showToast('❌ Ошибка проверки', 'error');
+        }
+    } catch (error) {
+        showToast('❌ Ошибка: ' + error.message, 'error');
+    }
+}
+
+function showToast(message, type = 'info') {
+    // Создаём всплывающее уведомление
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#3b9eff'};
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    `;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+// Добавляем CSS анимации
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
+
+function openProfileModal() {
+    document.getElementById('profileId').value = '';
+    document.getElementById('profileFullName').value = '';
+    document.getElementById('profileEmail').value = '';
+    document.getElementById('profilePhone').value = '';
+    document.getElementById('profileTelegram').value = '';
+    document.getElementById('profileRole').value = 'client';
+    document.getElementById('profileCategory').value = '';
+    document.getElementById('profilePosition').value = '';
+    document.getElementById('profileCompany').value = '';
+    document.getElementById('profileCity').value = '';
+    document.getElementById('profileStatus').value = 'active';
+    document.getElementById('profileNotes').value = '';
+    document.getElementById('profileBirthDate').value = '';
+    document.getElementById('profileModalTitle').textContent = 'Добавить профиль';
+    document.getElementById('profileModal').classList.add('active');
+}
+
+function closeProfileModal() {
+    document.getElementById('profileModal').classList.remove('active');
+}
+        
+        // ============ НАСТРОЙКИ САЙТА ============
+        
+        async function loadSettings() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/settings`);
+                const settings = await response.json();
+                
+                document.getElementById('maintenanceModeCheckbox').checked = settings.maintenance_mode;
+                document.getElementById('maintenancePages').value = settings.maintenance_pages || '';
+                
+                showSettingsMessage('Настройки загружены', 'success');
+            } catch (error) {
+                showSettingsMessage('Ошибка загрузки: ' + error.message, 'error');
+            }
+        }
+        
+        async function saveSettings() {
+            const maintenance_mode = document.getElementById('maintenanceModeCheckbox').checked;
+            const maintenance_pages = document.getElementById('maintenancePages').value;
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/admin/settings`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ maintenance_mode, maintenance_pages })
+                });
+                
+                if (response.ok) {
+                    showSettingsMessage('✅ Настройки сохранены!', 'success');
+                } else {
+                    showSettingsMessage('❌ Ошибка сохранения', 'error');
+                }
+            } catch (error) {
+                showSettingsMessage('❌ Ошибка: ' + error.message, 'error');
+            }
+        }
+        
+        function showSettingsMessage(message, type) {
+            const msgDiv = document.getElementById('settingsMessage');
+            msgDiv.textContent = message;
+            msgDiv.style.backgroundColor = type === 'success' ? '#d4edda' : '#f8d7da';
+            msgDiv.style.color = type === 'success' ? '#155724' : '#721c24';
+            msgDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                msgDiv.style.display = 'none';
+            }, 3000);
+        }
+        
+        // ============ УПРАВЛЕНИЕ МОДАЛЬНЫМИ ОКНАМИ ============
+        
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            if (tab === 'news') {
+                document.querySelector('.tab-btn:nth-child(1)').classList.add('active');
+                document.getElementById('newsTab').classList.add('active');
+                loadNews();
+            } else if (tab === 'vacancies') {
+                document.querySelector('.tab-btn:nth-child(2)').classList.add('active');
+                document.getElementById('vacanciesTab').classList.add('active');
+                loadVacancies();
+            } else if (tab === 'applications') {
+                document.querySelector('.tab-btn:nth-child(3)').classList.add('active');
+                document.getElementById('applicationsTab').classList.add('active');
+                loadApplications();
+            } else if (tab === 'projects') {
+                document.querySelector('.tab-btn:nth-child(4)').classList.add('active');
+                document.getElementById('projectsTab').classList.add('active');
+                loadProjects();
+            } else if (tab === 'profiles') {
+                document.querySelector('.tab-btn:nth-child(5)').classList.add('active');
+                document.getElementById('profilesTab').classList.add('active');
+                loadProfiles();
+                loadCategoriesStats();
+            } else if (tab === 'documents') {
+                document.querySelector('.tab-btn:nth-child(6)').classList.add('active');
+                document.getElementById('documentsTab').classList.add('active');
+                loadDocuments();
+            } else if (tab === 'settings') {
+                document.querySelector('.tab-btn:nth-child(7)').classList.add('active');
+                document.getElementById('settingsTab').classList.add('active');
+                loadSettings();
+            }
+        }
+        
+        function openNewsModal() {
+            document.getElementById('newsId').value = '';
+            document.getElementById('newsTitle').value = '';
+            document.getElementById('newsCategory').value = 'События';
+            document.getElementById('newsImageUrl').value = '';
+            document.getElementById('newsExcerpt').value = '';
+            document.getElementById('newsContent').value = '';
+            document.getElementById('newsModalTitle').textContent = 'Добавить новость';
+            document.getElementById('newsModal').classList.add('active');
+        }
+        
+        function closeNewsModal() {
+            document.getElementById('newsModal').classList.remove('active');
+        }
+        
+        function openVacancyModal() {
+            document.getElementById('vacancyId').value = '';
+            document.getElementById('vacancyTitle').value = '';
+            document.getElementById('vacancyIcon').value = 'fab fa-js';
+            document.getElementById('vacancyTags').value = '';
+            document.getElementById('vacancyDescription').value = '';
+            document.getElementById('vacancyActive').value = 'true';
+            document.getElementById('vacancyModalTitle').textContent = 'Добавить вакансию';
+            document.getElementById('vacancyModal').classList.add('active');
+        }
+        
+        function closeVacancyModal() {
+            document.getElementById('vacancyModal').classList.remove('active');
+        }
+        
+        function openDocumentModal() {
+            document.getElementById('documentId').value = '';
+            document.getElementById('documentTitle').value = '';
+            document.getElementById('documentCategory').value = 'tech-spec';
+            document.getElementById('documentDescription').value = '';
+            document.getElementById('documentFileName').value = '';
+            document.getElementById('documentFileUrl').value = '';
+            document.getElementById('documentIcon').value = 'fas fa-file-pdf';
+            document.getElementById('documentActive').value = 'true';
+            document.getElementById('documentModalTitle').textContent = 'Добавить документ';
+            document.getElementById('documentModal').classList.add('active');
+        }
+        
+        function closeDocumentModal() {
+            document.getElementById('documentModal').classList.remove('active');
+        }
+        
+        function openProjectModal() {
+            // Очищаем все поля
+            const idField = document.getElementById('projectId');
+            const nameField = document.getElementById('projectName');
+            const descField = document.getElementById('projectDescription');
+            const techField = document.getElementById('projectTechStack');
+            const siteField = document.getElementById('projectSiteUrl');
+            const githubField = document.getElementById('projectGithubUrl');
+            const titleField = document.getElementById('projectModalTitle');
+            
+            if (idField) idField.value = '';
+            if (nameField) nameField.value = '';
+            if (descField) descField.value = '';
+            if (techField) techField.value = '';
+            if (siteField) siteField.value = '';
+            if (githubField) githubField.value = '';
+            if (titleField) titleField.textContent = 'Добавить проект';
+            
+            const modal = document.getElementById('projectModal');
+            if (modal) modal.classList.add('active');
+        }
+        
+        function closeProjectModal() {
+            const modal = document.getElementById('projectModal');
+            if (modal) modal.classList.remove('active');
+        }
+        
+        function closeApplicationModal() {
+            const modal = document.getElementById('applicationModal');
+            if (modal) modal.classList.remove('active');
+        }
+
+        const adminTablePages = new WeakMap();
+        const adminTablePageSize = 10;
+
+        function updateAdminTable(table) {
+            const body = table.tBodies[0];
+            if (!body) return;
+            const wrapper = table.parentElement;
+            let tools = wrapper.querySelector('.admin-table-tools');
+            let pagination = wrapper.querySelector('.admin-pagination');
+            if (!tools) {
+                tools = document.createElement('div');
+                tools.className = 'admin-table-tools';
+                const search = document.createElement('input');
+                search.className = 'admin-table-search';
+                search.type = 'search';
+                search.placeholder = 'Поиск по таблице...';
+                tools.appendChild(search);
+                wrapper.insertBefore(tools, table);
+                search.addEventListener('input', () => {
+                    adminTablePages.set(table, 1);
+                    updateAdminTable(table);
+                });
+            }
+            if (!pagination) {
+                pagination = document.createElement('div');
+                pagination.className = 'admin-pagination';
+                wrapper.appendChild(pagination);
+            }
+            const searchTerm = tools.querySelector('input').value.trim().toLowerCase();
+            const rows = Array.from(body.rows);
+            const matchingRows = rows.filter(row => row.textContent.toLowerCase().includes(searchTerm));
+            const pageCount = Math.max(1, Math.ceil(matchingRows.length / adminTablePageSize));
+            const page = Math.min(adminTablePages.get(table) || 1, pageCount);
+            adminTablePages.set(table, page);
+            rows.forEach(row => row.hidden = !matchingRows.includes(row));
+            matchingRows.slice((page - 1) * adminTablePageSize, page * adminTablePageSize).forEach(row => row.hidden = false);
+            pagination.innerHTML = `<span style="color:#4a5b6e;font-size:0.85rem;">${matchingRows.length} записей</span>`;
+            if (pageCount > 1) {
+                const previous = document.createElement('button');
+                previous.textContent = '‹';
+                previous.disabled = page === 1;
+                previous.onclick = () => { adminTablePages.set(table, page - 1); updateAdminTable(table); };
+                pagination.appendChild(previous);
+                for (let index = 1; index <= pageCount; index += 1) {
+                    const button = document.createElement('button');
+                    button.textContent = index;
+                    button.className = index === page ? 'active' : '';
+                    button.onclick = () => { adminTablePages.set(table, index); updateAdminTable(table); };
+                    pagination.appendChild(button);
+                }
+                const next = document.createElement('button');
+                next.textContent = '›';
+                next.disabled = page === pageCount;
+                next.onclick = () => { adminTablePages.set(table, page + 1); updateAdminTable(table); };
+                pagination.appendChild(next);
+            }
+        }
+
+        const adminTableObserver = new MutationObserver(() => {
+            adminTableObserver.disconnect();
+            document.querySelectorAll('#adminPanel table').forEach(updateAdminTable);
+            adminTableObserver.observe(document.getElementById('adminPanel'), { childList: true, subtree: true });
+        });
+        adminTableObserver.observe(document.getElementById('adminPanel'), { childList: true, subtree: true });
+        document.querySelectorAll('#adminPanel table').forEach(updateAdminTable);
+        
+        // Инициализация
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                logout();
+            });
+        }
+        
+        checkSession();
+    </script>
+</body>
+</html>

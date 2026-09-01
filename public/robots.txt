@@ -1,0 +1,13 @@
+# robots.txt для Знание Севера
+User-agent: *
+Allow: /
+
+# Запрещаем индексацию админ-панели и страницы обслуживания
+Disallow: /admin.html
+Disallow: /maintenance.html
+
+# Карта сайта
+Sitemap: https://znaniesevera.vercel.app/sitemap.xml
+
+# Хост
+Host: https://znaniesevera.vercel.app

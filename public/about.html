@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="История создания корпорации Знание Севера — путь от первой неудачи до успешных проектов">
+    <title>Наша история | Знание Севера</title>
+    <meta property="og:title" content="Наша история | Знание Севера">
+    <meta property="og:description" content="История создания и развития корпорации цифровых решений «Знание Севера».">
+    <meta property="og:image" content="https://znaniesevera.vercel.app/og-image.jpg">
+    <meta property="og:url" content="https://znaniesevera.vercel.app/about.html">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://znaniesevera.vercel.app/about.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .story-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .journey-section {
+            padding: 80px 0;
+            background: var(--white);
+        }
+        
+        .journey-timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent), var(--ice-dark));
+        }
+        
+        .journey-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .journey-item:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .journey-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .journey-content {
+            width: 45%;
+            background: var(--white);
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid var(--gray);
+        }
+        
+        .journey-content:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent);
+        }
+        
+        .journey-year {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        
+        .journey-content h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.5rem;
+        }
+        
+        .journey-icon {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.25rem;
+            z-index: 1;
+            box-shadow: 0 0 0 4px var(--white);
+        }
+        
+        .quote-section {
+            background: var(--ice);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .quote p {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--primary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .values-section {
+            padding: 80px 0;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+        
+        .value-card {
+            text-align: center;
+            padding: 32px;
+            background: var(--ice);
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+        
+        .value-card:hover {
+            transform: translateY(-8px);
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .value-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+        
+        .achievements-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            padding: 80px 0;
+        }
+        
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            text-align: center;
+        }
+        
+        .achievement-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .journey-timeline::before {
+                left: 30px;
+            }
+            
+            .journey-item,
+            .journey-item:nth-child(odd),
+            .journey-item:nth-child(even) {
+                flex-direction: column;
+                margin-left: 60px;
+            }
+            
+            .journey-content {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .journey-icon {
+                left: 30px;
+                transform: translateX(0);
+            }
+            
+            .story-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .quote p {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <i class="fas fa-snowflake"></i>
+                <span>Знание Севера</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="about.html" class="nav-link active">Наша история</a></li>
+                <li><a href="documents.html" class="nav-link">Документы</a></li>
+                <li><a href="blog.html" class="nav-link">Блог</a></li>
+                <li><a href="careers.html" class="nav-link">Вакансии</a></li>
+                <li><a href="index.html#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="story-hero">
+            <div class="container">
+                <h1>История создания<br>«Знание Севера»</h1>
+                <p>Путь от первой неудачи до создания корпорации</p>
+            </div>
+        </section>
+
+        <section class="journey-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Наш путь</h2>
+                    <p class="section-subtitle">Как мечта превратилась в реальность</p>
+                </div>
+                
+                <div class="journey-timeline">
+                    <div class="journey-item">
+                        <div class="journey-icon"><i class="fas fa-code"></i></div>
+                        <div class="journey-content">
+                            <div class="journey-year">Начало пути</div>
+                            <h3>IT-школа «Кодики»</h3>
+                            <p>Артём начал обучение на курсе веб-программирования. К концу года нужно было сдать проект — электронный дневник, аналог СГО.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="journey-item">
+                        <div class="journey-icon"><i class="fas fa-frown"></i></div>
+                        <div class="journey-content">
+                            <div class="journey-year">Первая неудача</div>
+                            <h3>Проект не сдан</h3>
+                            <p>Сроки поджимали, знаний не хватало. Проект электронного дневника так и не был завершён. Но это поражение стало отправной точкой.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="journey-item">
+                        <div class="journey-icon"><i class="fas fa-trophy"></i></div>
+                        <div class="journey-content">
+                            <div class="journey-year">2024 - Конкурс «Шаг в будущее»</div>
+                            <h3>Первое участие в конкурсе</h3>
+                            <p>Разработали электронный журнал «Знание Севера» и представили его на конкурсе. Защита прошла успешно, но призового места не заняли.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="journey-item">
+                        <div class="journey-icon"><i class="fas fa-undo-alt"></i></div>
+                        <div class="journey-content">
+                            <div class="journey-year">Декабрь 2025</div>
+                            <h3>Олимпиада по технологии</h3>
+                            <p>Полностью переписали электронный журнал. Именно тогда родилась идея создать корпорацию «Знание Севера».</p>
+                        </div>
+                    </div>
+                    
+                    <div class="journey-item">
+                        <div class="journey-icon"><i class="fas fa-building"></i></div>
+                        <div class="journey-content">
+                            <div class="journey-year">2026</div>
+                            <h3>Рождение корпорации</h3>
+                            <p>Создали корпорацию «Знание Севера» — объединение единомышленников, создающих современные цифровые решения.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="journey-item">
+                        <div class="journey-icon"><i class="fas fa-star"></i></div>
+                        <div class="journey-content">
+                            <div class="journey-year">26 марта 2026</div>
+                            <h3>Большие вызовы</h3>
+                            <p>Защита проекта электронного журнала на конкурсе научно-технологических проектов «Большие вызовы». История только начинается!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="quote-section">
+            <div class="container">
+                <div class="quote">
+                    <i class="fas fa-quote-right" style="font-size: 3rem; color: var(--accent); opacity: 0.5; margin-bottom: 20px; display: block;"></i>
+                    <p>Неудача — это не конец пути. Это повод начать сначала, но уже умнее.</p>
+                    <p style="margin-top: 20px; font-weight: 600;">— Артём (Razetka), основатель Знание Севера</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="values-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Наши ценности</h2>
+                    <p class="section-subtitle">То, во что мы верим</p>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Страсть к своему делу</h3>
+                        <p>Мы любим то, что создаём, и вкладываем душу в каждый проект</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Постоянное развитие</h3>
+                        <p>Учимся на ошибках, растем над собой и не останавливаемся</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Командный дух</h3>
+                        <p>Вместе мы сильнее, и каждый вклад важен</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-gem"></i>
+                        <h3>Качество</h3>
+                        <p>Делаем хорошо или не делаем вообще</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="achievements-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title" style="color: var(--white);">Наши достижения</h2>
+                    <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">Цифры, которые говорят за нас</p>
+                </div>
+                <div class="achievements-grid">
+                    <div class="achievement-item">
+                        <div class="achievement-number">4+</div>
+                        <div>Конкурсов и олимпиад</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-number">3</div>
+                        <div>Успешных проекта</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-number">2026</div>
+                        <div>Год основания корпорации</div>
+                    </div>
+                    <div class="achievement-item">
+                        <div class="achievement-number">∞</div>
+                        <div>Вера в успех</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-snowflake"></i>
+                    <span>Знание Севера</span>
+                    <p>Корпорация цифровых решений</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Главная</a>
+                    <a href="about.html">Наша история</a>
+                    <a href="blog.html">Блог</a>
+                    <a href="careers.html">Вакансии</a>
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="index.html#contacts">Контакты</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://t.me/znaniesevera" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://github.com/razetka2010" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://max.ru/join/KHFb5Aag3aTWi6CZS0D8jM13bFWcXrLOsq0SSWn_Gzg" target="_blank"><i class="fas fa-rocket"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Корпорация «Знание Севера». Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Главная",
+                    "item": "https://znaniesevera.vercel.app/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Наша история",
+                    "item": "https://znaniesevera.vercel.app/about.html"
+                }
+            ]
+        }
+    </script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

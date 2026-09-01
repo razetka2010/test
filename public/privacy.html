@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Политика конфиденциальности корпорации Знание Севера — как мы собираем, используем и защищаем ваши данные">
+    <title>Политика конфиденциальности | Знание Севера</title>
+    <meta property="og:title" content="Политика конфиденциальности | Знание Севера">
+    <meta property="og:description" content="Политика обработки и защиты персональных данных корпорации «Знание Севера».">
+    <meta property="og:image" content="https://znaniesevera.vercel.app/og-image.jpg">
+    <meta property="og:url" content="https://znaniesevera.vercel.app/privacy.html">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://znaniesevera.vercel.app/privacy.html">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        .privacy-hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+        
+        .privacy-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .privacy-hero p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .privacy-content {
+            padding: 60px 0;
+            background: var(--white);
+        }
+        
+        .privacy-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .privacy-section {
+            margin-bottom: 48px;
+            scroll-margin-top: 80px;
+        }
+        
+        .privacy-section h2 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .privacy-section h3 {
+            color: var(--primary-light);
+            font-size: 1.25rem;
+            margin: 24px 0 12px;
+        }
+        
+        .privacy-section p {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        
+        .privacy-section ul {
+            margin: 16px 0 16px 24px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        
+        .privacy-section li {
+            margin-bottom: 8px;
+        }
+        
+        .privacy-section .highlight {
+            background: var(--ice);
+            padding: 20px;
+            border-radius: 16px;
+            margin: 24px 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .privacy-section .highlight p {
+            margin-bottom: 0;
+        }
+        
+        .privacy-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .privacy-section th,
+        .privacy-section td {
+            border: 1px solid var(--gray);
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .privacy-section th {
+            background: var(--ice);
+            color: var(--primary);
+        }
+        
+        .last-updated {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--gray);
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            z-index: 999;
+        }
+        
+        .back-to-top:hover {
+            background: var(--primary);
+            transform: translateY(-4px);
+        }
+        
+        @media (max-width: 768px) {
+            .privacy-hero h1 {
+                font-size: 1.75rem;
+            }
+            
+            .privacy-section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .privacy-section {
+                margin-bottom: 32px;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+        
+        .toc {
+            background: var(--ice);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .toc h3 {
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .toc a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+        
+        .toc a:hover {
+            color: var(--accent);
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="logo">
+                <i class="fas fa-snowflake"></i>
+                <span>Знание Севера</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Главная</a></li>
+                <li><a href="about.html" class="nav-link">Наша история</a></li>
+                <li><a href="documents.html" class="nav-link">Документы</a></li>
+                <li><a href="blog.html" class="nav-link">Блог</a></li>
+                <li><a href="careers.html" class="nav-link">Вакансии</a></li>
+                <li><a href="index.html#contacts" class="nav-link">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="privacy-hero">
+            <div class="container">
+                <h1>Политика конфиденциальности</h1>
+                <p>Мы ценим ваше доверие и заботимся о защите ваших персональных данных</p>
+            </div>
+        </section>
+
+        <section class="privacy-content">
+            <div class="privacy-container">
+                <!-- Оглавление -->
+                <div class="toc">
+                    <h3><i class="fas fa-list"></i> Содержание</h3>
+                    <ul>
+                        <li><a href="#general">1. Общие положения</a></li>
+                        <li><a href="#data">2. Какие данные мы собираем</a></li>
+                        <li><a href="#use">3. Как мы используем ваши данные</a></li>
+                        <li><a href="#legal">4. Правовые основания обработки</a></li>
+                        <li><a href="#transfer">5. Передача данных третьим лицам</a></li>
+                        <li><a href="#storage">6. Хранение и защита данных</a></li>
+                        <li><a href="#rights">7. Ваши права</a></li>
+                        <li><a href="#cookies">8. Использование cookies</a></li>
+                        <li><a href="#changes">9. Изменения политики</a></li>
+                        <li><a href="#contacts">10. Контактная информация</a></li>
+                    </ul>
+                </div>
+
+                <!-- 1. Общие положения -->
+                <div id="general" class="privacy-section">
+                    <h2>1. Общие положения</h2>
+                    <p>Настоящая Политика конфиденциальности (далее — «Политика») определяет порядок обработки и защиты персональных данных пользователей корпорации «Знание Севера» (далее — «Компания», «мы», «нас»).</p>
+                    <p>Используя наш сайт <strong> https://znaniesevera.vercel.app/ </strong> (далее — «Сайт»), вы соглашаетесь с условиями настоящей Политики. Если вы не согласны с условиями Политики, пожалуйста, прекратите использование Сайта.</p>
+                </div>
+
+                <!-- 2. Какие данные мы собираем -->
+                <div id="data" class="privacy-section">
+                    <h2>2. Какие данные мы собираем</h2>
+                    <p>В зависимости от того, как вы взаимодействуете с нашим Сайтом, мы можем собирать следующие категории данных:</p>
+                    
+                    <h3>2.1. Данные, предоставляемые вами добровольно</h3>
+                    <ul>
+                        <li><strong>При отправке заявки на вакансию:</strong> имя, email, контактный телефон/Telegram, сообщение, ссылка на портфолио.</li>
+                        <li><strong>При подписке на новости:</strong> адрес электронной почты.</li>
+                        <li><strong>При обращении в поддержку:</strong> имя, контактные данные, содержание обращения.</li>
+                    </ul>
+                    
+                    <h3>2.2. Данные, собираемые автоматически</h3>
+                    <ul>
+                        <li><strong>Технические данные:</strong> IP-адрес, тип браузера, операционная система, тип устройства.</li>
+                        <li><strong>Данные об использовании:</strong> просмотренные страницы, время на сайте, переходы по ссылкам.</li>
+                        <li><strong>Cookie-файлы:</strong> для улучшения работы сайта и анализа трафика.</li>
+                    </ul>
+                    
+                    <h3>2.3. Данные, собираемые при регистрации в админ-панели</h3>
+                    <ul>
+                        <li>Email и пароль (для администраторов).</li>
+                        <li>Данные о действиях в админ-панели.</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Как мы используем ваши данные -->
+                <div id="use" class="privacy-section">
+                    <h2>3. Как мы используем ваши данные</h2>
+                    <p>Мы используем собранные данные для следующих целей:</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> <strong>Предоставление услуг:</strong> обработка заявок на вакансии, ответы на обращения.</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> <strong>Улучшение сайта:</strong> анализ использования, оптимизация контента.</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> <strong>Коммуникация:</strong> отправка уведомлений, новостей (с вашего согласия).</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> <strong>Безопасность:</strong> защита от мошенничества, предотвращение атак.</li>
+                        <li><i class="fas fa-check-circle" style="color: var(--accent);"></i> <strong>Выполнение обязательств:</strong> соблюдение законодательства РФ.</li>
+                    </ul>
+                </div>
+
+                <!-- 4. Правовые основания обработки -->
+                <div id="legal" class="privacy-section">
+                    <h2>4. Правовые основания обработки</h2>
+                    <p>Обработка персональных данных осуществляется на следующих основаниях:</p>
+                    <ul>
+                        <li>Согласие пользователя, выраженное при заполнении форм на Сайте.</li>
+                        <li>Исполнение договора, стороной которого является пользователь.</li>
+                        <li>Соблюдение требований законодательства Российской Федерации.</li>
+                        <li>Законные интересы Компании (улучшение качества услуг, обеспечение безопасности).</li>
+                    </ul>
+                </div>
+
+                <!-- 5. Передача данных третьим лицам -->
+                <div id="transfer" class="privacy-section">
+                    <h2>5. Передача данных третьим лицам</h2>
+                    <p>Мы НЕ передаём ваши персональные данные третьим лицам, за исключением следующих случаев:</p>
+                    <ul>
+                        <li><strong>С вашего явного согласия.</strong></li>
+                        <li><strong>По требованию закона:</strong> по запросу правоохранительных органов в установленном порядке.</li>
+                        <li><strong>Техническим партнёрам:</strong> для обеспечения работы Сайта (хостинг-провайдеры, системы аналитики). Все партнёры обязуются соблюдать конфиденциальность.</li>
+                    </ul>
+                    <p>Мы используем следующие сервисы для обработки данных:</p>
+                    <ul>
+                        <li><strong>Neon:</strong> хранение данных (база данных, аутентификация).</li>
+                        <li><strong>Vercel:</strong> хостинг и деплой сайта.</li>
+                        <li><strong>GitHub:</strong> хранение кода и версионирование.</li>
+                    </ul>
+                </div>
+
+                <!-- 6. Хранение и защита данных -->
+                <div id="storage" class="privacy-section">
+                    <h2>6. Хранение и защита данных</h2>
+                    <p>Мы принимаем все необходимые меры для защиты ваших данных:</p>
+                    <ul>
+                        <li>Использование HTTPS-шифрования для передачи данных.</li>
+                        <li>Ограничение доступа к данным только авторизованным сотрудникам.</li>
+                        <li>Регулярное обновление программного обеспечения.</li>
+                        <li>Хранение данных на защищённых серверах Neon.</li>
+                    </ul>
+                    <p>Срок хранения данных: мы храним ваши данные до тех пор, пока это необходимо для целей, указанных в Политике, либо до тех пор, пока вы не отзовёте своё согласие. Данные о заявках на вакансии хранятся в течение 3 лет.</p>
+                </div>
+
+                <!-- 7. Ваши права -->
+                <div id="rights" class="privacy-section">
+                    <h2>7. Ваши права</h2>
+                    <p>Как субъект персональных данных, вы имеете право:</p>
+                    <ul>
+                        <li><strong>На доступ:</strong> запросить информацию о том, какие данные о вас хранятся.</li>
+                        <li><strong>На исправление:</strong> потребовать исправить неточные или устаревшие данные.</li>
+                        <li><strong>На удаление:</strong> потребовать удалить ваши данные («право быть забытым»).</li>
+                        <li><strong>На ограничение обработки:</strong> приостановить обработку ваших данных.</li>
+                        <li><strong>На отзыв согласия:</strong> в любой момент отозвать согласие на обработку данных.</li>
+                        <li><strong>На возражение:</strong> возражать против обработки данных для маркетинговых целей.</li>
+                    </ul>
+                    <p>Для реализации ваших прав свяжитесь с нами по контактам, указанным в разделе 10.</p>
+                </div>
+
+                <!-- 8. Использование cookies -->
+                <div id="cookies" class="privacy-section">
+                    <h2>8. Использование cookies</h2>
+                    <p>Наш сайт использует файлы cookie для улучшения работы и сбора аналитики. Мы используем:</p>
+                    <ul>
+                        <li><strong>Необходимые cookies:</strong> для обеспечения базовой функциональности сайта.</li>
+                        <li><strong>Аналитические cookies:</strong> для сбора данных о посещаемости (Google Analytics, Vercel Analytics).</li>
+                        <li><strong>Функциональные cookies:</strong> для запоминания ваших настроек.</li>
+                    </ul>
+                    <p>Вы можете управлять настройками cookies в вашем браузере. Отключение cookies может повлиять на работу некоторых функций сайта.</p>
+                    <table>
+                        <thead>
+                            <tr><th>Тип cookie</th><th>Назначение</th><th>Срок хранения</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>session</td><td>Идентификация сессии</td><td>До закрытия браузера</td></tr>
+                            <tr><td>_ga</td><td>Аналитика Google Analytics</td><td>2 года</td></tr>
+                            <tr><td>preferences</td><td>Сохранение настроек</td><td>1 год</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 9. Изменения политики -->
+                <div id="changes" class="privacy-section">
+                    <h2>9. Изменения политики конфиденциальности</h2>
+                    <p>Мы оставляем за собой право вносить изменения в настоящую Политику. Актуальная версия всегда доступна на этой странице. При существенных изменениях мы уведомим вас через баннер на сайте или по электронной почте (при наличии подписки).</p>
+                    <p>Рекомендуем периодически проверять эту страницу для ознакомления с обновлениями. Продолжение использования Сайта после изменений означает ваше согласие с новой версией Политики.</p>
+                </div>
+
+                <!-- 10. Контактная информация -->
+                <div id="contacts" class="privacy-section">
+                    <h2>10. Контактная информация</h2>
+                    <p>По всем вопросам, связанным с обработкой персональных данных, вы можете обратиться к нам:</p>
+                    <ul>
+                        <li><i class="fab fa-telegram"></i> <strong>Telegram:</strong> <a href="https://t.me/znaniesevera" target="_blank">@znaniesevera</a></li>
+                        <li><i class="fas fa-phone-alt"></i> <strong>Телефон:</strong> <a href="tel:+79370948423">+7 (937) 094-84-23</a></li>
+                    </ul>
+                </div>
+
+                <div class="last-updated">
+                    <p><i class="fas fa-calendar-alt"></i> Последнее обновление: 26 марта 2026 года</p>
+                    <p>© 2026 Корпорация «Знание Севера». Все права защищены.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-snowflake"></i>
+                    <span>Знание Севера</span>
+                    <p>Корпорация цифровых решений</p>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Главная</a>
+                    <a href="about.html">Наша история</a>
+                    <a href="blog.html">Блог</a>
+                    <a href="careers.html">Вакансии</a>
+                    <a href="privacy.html">Политика конфиденциальности</a>
+                    <a href="index.html#contacts">Контакты</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://t.me/znaniesevera" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://github.com/razetka2010" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://max.ru/join/KHFb5Aag3aTWi6CZS0D8jM13bFWcXrLOsq0SSWn_Gzg" target="_blank"><i class="fas fa-rocket"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Корпорация «Знание Севера». Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const headerOffset = 80;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Back to top button visibility
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.opacity = '1';
+                backToTop.style.visibility = 'visible';
+            } else {
+                backToTop.style.opacity = '0';
+                backToTop.style.visibility = 'hidden';
+            }
+        });
+        backToTop.style.transition = 'all 0.3s ease';
+        backToTop.style.opacity = '0';
+        backToTop.style.visibility = 'hidden';
+    </script>
+</body>
+</html>
