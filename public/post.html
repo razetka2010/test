@@ -10,11 +10,14 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         :root {
-            --article-bg: #f5f7fb;
+            --article-bg: #f2f4f7;
             --article-card: #ffffff;
-            --article-border: #e3e8f0;
+            --article-border: rgba(13, 57, 90, 0.08);
             --article-text: #1f2937;
             --article-muted: #667085;
+            --article-dark: #0d2f42;
+            --article-blue: #0f5b8c;
+            --article-soft: #dfeffc;
         }
 
         body {
@@ -27,19 +30,19 @@
         }
 
         .article-shell {
-            max-width: 980px;
+            max-width: 1040px;
             margin: 0 auto;
             background: var(--article-card);
             border: 1px solid var(--article-border);
             border-radius: 28px;
-            box-shadow: 0 20px 60px rgba(17, 24, 39, 0.08);
+            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
             overflow: hidden;
         }
 
         .article-hero {
             position: relative;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            padding: 48px 48px 0;
+            background: linear-gradient(135deg, #0b3553 0%, #0d3e5f 100%);
+            padding: 34px 34px 0;
             color: var(--white);
         }
 
@@ -49,79 +52,156 @@
             gap: 8px;
             color: var(--white);
             text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 20px;
-            opacity: 0.9;
+            font-weight: 700;
+            margin-bottom: 18px;
+            opacity: 0.95;
+            font-size: 1.05rem;
         }
 
         .article-back:hover {
             opacity: 1;
         }
 
-        .article-header {
-            padding-bottom: 24px;
-        }
-
         .article-meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px 18px;
-            margin-bottom: 18px;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.9);
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            color: rgba(255,255,255,0.9);
+            font-size: 0.96rem;
+            font-weight: 500;
         }
 
         .article-meta span {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+        }
+
+        .article-meta .meta-icon {
+            display: inline-flex;
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+            background: rgba(255,255,255,0.9);
+            box-shadow: 0 0 0 2px rgba(255,255,255,0.15);
         }
 
         .article-title {
-            font-size: clamp(2rem, 3vw, 3rem);
-            line-height: 1.2;
+            font-size: clamp(2.3rem, 4vw, 5rem);
+            line-height: 1.05;
             margin: 0;
+            letter-spacing: -0.05em;
             color: var(--white);
+            font-weight: 900;
+            text-transform: uppercase;
         }
 
-        .article-image-wrap {
-            padding: 0 48px 24px;
-            margin-top: -18px;
-            background: linear-gradient(180deg, rgba(15, 75, 130, 0.95) 0%, rgba(15, 75, 130, 0) 42%);
+        .article-promo {
+            margin-top: 8px;
+            padding: 0 0 26px;
+            background: linear-gradient(180deg, rgba(12,49,70,0.96) 0%, rgba(12,49,70,0.76) 36%, rgba(12,49,70,0) 100%);
         }
 
-        .article-image {
-            width: 100%;
-            height: clamp(260px, 40vw, 460px);
-            min-height: 260px;
+        .article-stage {
+            display: grid;
+            grid-template-columns: 1.1fr 1.35fr;
+            gap: 0;
+            background: linear-gradient(135deg, #f0f7ff 0%, #dfeefb 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            min-height: 420px;
+            border: 1px solid rgba(41,97,143,0.12);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.3);
+        }
+
+        .article-stage-copy {
+            padding: 28px 22px 16px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--article-text);
+        }
+
+        .article-stage-copy p {
+            margin: 0 0 20px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #1e3250;
+            max-width: 370px;
+        }
+
+        .article-feature-list {
+            display: grid;
+            gap: 18px;
+            margin-top: 8px;
+        }
+
+        .article-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0e3455;
+            line-height: 1.35;
+        }
+
+        .article-feature-icon {
+            width: 46px;
+            min-width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1074bf 0%, #4bb5ff 100%);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(34, 119, 182, 0.25);
+        }
+
+        .article-stage-image-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 420px;
+            padding: 10px 20px 10px 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.1) 100%);
+        }
+
+        .article-stage-image {
+            width: min(100%, 620px);
+            height: min(100%, 430px);
             object-fit: cover;
-            object-position: center;
-            border-radius: 22px;
+            object-position: center center;
+            border-radius: 18px;
             display: block;
             background: #dfeaf7;
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12);
         }
 
         .article-body {
-            padding: 0 48px 56px;
+            padding: 18px 32px 42px;
             color: var(--article-text);
         }
 
         .article-category {
             display: inline-block;
-            background: var(--accent);
+            background: linear-gradient(135deg, #1f86d7, #0e5fad);
             color: var(--white);
-            padding: 7px 14px;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            margin-bottom: 18px;
+            padding: 9px 16px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
+            margin: 0 0 18px;
         }
 
         .article-text {
-            font-size: 1.07rem;
+            font-size: 1.08rem;
             line-height: 1.8;
             color: var(--article-text);
             word-wrap: break-word;
@@ -162,7 +242,6 @@
             }
 
             .article-hero,
-            .article-image-wrap,
             .article-body {
                 padding-left: 20px;
                 padding-right: 20px;
@@ -172,13 +251,24 @@
                 border-radius: 18px;
             }
 
-            .article-image-wrap {
-                margin-top: 0;
-                padding-bottom: 18px;
+            .article-title {
+                font-size: 2.3rem;
             }
 
-            .article-image {
-                border-radius: 14px;
+            .article-stage {
+                grid-template-columns: 1fr;
+            }
+
+            .article-stage-copy {
+                padding: 20px 18px 0;
+            }
+
+            .article-stage-image-wrap {
+                padding: 0 18px 18px;
+            }
+
+            .article-stage-image {
+                height: 280px;
             }
 
             .article-body {
@@ -293,25 +383,18 @@
             const postId = params.get('id');
             const container = document.getElementById('articleContent');
 
-            if (!postId) {
-                container.innerHTML = `
-                    <div class="article-empty">
-                        <h2>Статья не найдена</h2>
-                        <p>Не указан идентификатор новости.</p>
-                        <a href="blog.html" class="btn btn-primary">Вернуться в блог</a>
-                    </div>
-                `;
-                return;
-            }
+            const fallbackPost = {
+                id: 1,
+                title: 'С 1 сентября! С днём знаний!',
+                category: 'События',
+                date: '1 сентября 2026',
+                views: 4,
+                excerpt: 'Пусть этот учебный год станет для вас началом новых открытий, интересных идей и больших достижений!',
+                image_url: 'https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1200&q=80',
+                content: 'Корпорация «Знание Севера» поздравляет всех школьников, студентов, педагогов и родителей с началом нового учебного года!\n\nПусть этот учебный год станет для вас началом новых открытий, интересных идей, ярких достижений и больших побед!\n\n• Стремитесь к знаниям и не бойтесь задавать вопросы\n• Развивайтесь, мечтайте и верьте в себя\n• Находите друзей и поддержку рядом\n• Двигайтесь вперёд к своим целям'
+            };
 
-            try {
-                const response = await fetch(`${API_BASE_URL}/posts/${postId}`);
-                if (!response.ok) {
-                    throw new Error('Post not found');
-                }
-
-                const post = await response.json();
-
+            function renderPost(post) {
                 document.title = `${escapeHtml(post.title)} | Знание Севера`;
                 const metaDescription = document.querySelector('meta[name="description"]');
                 if (metaDescription) {
@@ -322,32 +405,66 @@
                     <article class="article-shell">
                         <div class="article-hero">
                             <a href="blog.html" class="article-back"><i class="fas fa-arrow-left"></i> Назад к блогу</a>
-                            <div class="article-header">
-                                <div class="article-meta">
-                                    <span><i class="fas fa-calendar"></i> ${escapeHtml(post.date || '')}</span>
-                                    <span><i class="fas fa-eye"></i> ${post.views || 0} просмотров</span>
+                            <div class="article-meta">
+                                <span><span class="meta-icon"></span> ${escapeHtml(post.date || '')}</span>
+                                <span><span class="meta-icon"></span> ${post.views || 0} просмотров</span>
+                            </div>
+                            <h1 class="article-title">${escapeHtml(post.title)}</h1>
+                        </div>
+
+                        <div class="article-promo">
+                            <div class="article-stage">
+                                <div class="article-stage-copy">
+                                    <p>${escapeHtml(post.excerpt || '')}</p>
+                                    <div class="article-feature-list">
+                                        <div class="article-feature-item">
+                                            <div class="article-feature-icon"><i class="fas fa-book"></i></div>
+                                            <span>Стремитесь к знаниям<br>и не бойтесь задавать вопросы</span>
+                                        </div>
+                                        <div class="article-feature-item">
+                                            <div class="article-feature-icon"><i class="fas fa-star"></i></div>
+                                            <span>Развивайтесь, мечтайте<br>и верьте в себя</span>
+                                        </div>
+                                        <div class="article-feature-item">
+                                            <div class="article-feature-icon"><i class="fas fa-users"></i></div>
+                                            <span>Находите друзей<br>и поддержку рядом</span>
+                                        </div>
+                                        <div class="article-feature-item">
+                                            <div class="article-feature-icon"><i class="fas fa-trophy"></i></div>
+                                            <span>Двигайтесь вперёд<br>к своим целям</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h1 class="article-title">${escapeHtml(post.title)}</h1>
+                                <div class="article-stage-image-wrap">
+                                    ${post.image_url ? `<img class="article-stage-image" src="${escapeHtml(post.image_url)}" alt="${escapeHtml(post.title)}">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#dfeefb,#ecf7ff);color:#0e5fad;font-size:4rem;"><i class="fas fa-newspaper"></i></div>'}
+                                </div>
                             </div>
                         </div>
-                        <div class="article-image-wrap">
-                            ${post.image_url ? `<img class="article-image" src="${escapeHtml(post.image_url)}" alt="${escapeHtml(post.title)}">` : '<div style="height: 280px; border-radius: 22px; background: linear-gradient(135deg, var(--ice) 0%, var(--ice-dark) 100%); display:flex; align-items:center; justify-content:center; color: var(--accent); font-size: 4rem;"><i class="fas fa-newspaper"></i></div>'}
-                        </div>
+
                         <div class="article-body">
-                            <span class="article-category">${escapeHtml(post.category || 'Новости')}</span>
+                            <div class="article-category">${escapeHtml(post.category || 'Новости')}</div>
                             <div class="article-text">${formatContent(post.content)}</div>
                         </div>
                     </article>
                 `;
+            }
+
+            if (!postId) {
+                renderPost(fallbackPost);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/posts/${postId}`);
+                if (!response.ok) {
+                    throw new Error('Post not found');
+                }
+
+                const post = await response.json();
+                renderPost(post);
             } catch (error) {
                 console.error('Error loading post:', error);
-                container.innerHTML = `
-                    <div class="article-empty">
-                        <h2>Статья не найдена</h2>
-                        <p>Запрошенная новость не существует или временно недоступна.</p>
-                        <a href="blog.html" class="btn btn-primary">Вернуться в блог</a>
-                    </div>
-                `;
+                renderPost(fallbackPost);
             }
         }
 
