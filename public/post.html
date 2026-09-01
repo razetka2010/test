@@ -27,23 +27,23 @@
         }
 
         .article-page {
-            padding: 120px 0 80px;
+            padding: 100px 0 80px;
             min-height: 100vh;
         }
 
         .article-shell {
-            max-width: 1080px;
+            max-width: 1220px;
             margin: 0 auto;
             background: var(--article-card);
             border: 1px solid var(--article-border);
-            border-radius: 26px;
+            border-radius: 30px;
             overflow: hidden;
-            box-shadow: 0 12px 30px rgba(15, 35, 52, 0.08);
+            box-shadow: 0 18px 40px rgba(15, 35, 52, 0.06);
         }
 
         .article-hero {
-            background: linear-gradient(135deg, #0b2f45 0%, #0e415f 100%);
-            padding: 26px 28px 0;
+            background: linear-gradient(135deg, #0a2d42 0%, #0e405c 100%);
+            padding: 28px 32px 0;
             color: #fff;
         }
 
@@ -93,47 +93,47 @@
         }
 
         .article-promo {
-            background: linear-gradient(180deg, rgba(12, 46, 62, 0.88) 0%, rgba(12, 46, 62, 0.78) 30%, rgba(230, 240, 252, 0) 30%, rgba(230, 240, 252, 0) 100%);
+            background: linear-gradient(180deg, rgba(10, 47, 69, 0.85) 0%, rgba(10, 47, 69, 0.8) 20%, rgba(237, 241, 245, 0) 20%, rgba(237, 241, 245, 0) 100%);
             padding: 0 20px 0;
         }
 
         .article-stage {
             display: grid;
-            grid-template-columns: 1.05fr 1.3fr;
+            grid-template-columns: 1fr 1.4fr;
             background: linear-gradient(135deg, #edf7ff 0%, #dfeefb 100%);
-            border-radius: 18px;
+            border-radius: 20px;
             overflow: hidden;
-            min-height: 420px;
+            min-height: 460px;
             border: 1px solid rgba(36,87,125,0.08);
-            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
         }
 
         .article-stage-copy {
-            padding: 26px 18px 18px 24px;
+            padding: 30px 24px 20px 30px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         .article-stage-copy p {
-            margin: 0 0 18px;
-            font-size: 1.05rem;
-            line-height: 1.55;
+            margin: 0 0 22px;
+            font-size: 1.08rem;
+            line-height: 1.6;
             color: #1f2c3a;
-            max-width: 360px;
+            max-width: 380px;
         }
 
         .article-feature-list {
             display: grid;
-            gap: 16px;
+            gap: 18px;
         }
 
         .article-feature-item {
             display: flex;
             align-items: center;
             gap: 14px;
-            font-size: 1.02rem;
-            font-weight: 600;
+            font-size: 1.03rem;
+            font-weight: 700;
             color: #0d2e46;
             line-height: 1.35;
         }
@@ -152,7 +152,7 @@
         }
 
         .article-stage-image-wrap {
-            padding: 16px 18px 10px 0;
+            padding: 18px 20px 10px 0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -160,18 +160,18 @@
 
         .article-stage-image {
             width: 100%;
-            max-width: 620px;
-            height: 390px;
+            max-width: 640px;
+            height: 400px;
             object-fit: cover;
             object-position: center;
-            border-radius: 16px;
+            border-radius: 18px;
             background: #dfeaf7;
             display: block;
-            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.14);
         }
 
         .article-body {
-            padding: 18px 28px 26px;
+            padding: 22px 30px 34px;
         }
 
         .article-category {
@@ -415,7 +415,7 @@
                                     </div>
                                 </div>
                                 <div class="article-stage-image-wrap">
-                                    ${post.image_url ? `<img class="article-stage-image" src="${escapeHtml(post.image_url)}" alt="${escapeHtml(post.title)}" style="object-position: center center;">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#dfeefb,#ecf7ff);color:#0e5fad;font-size:4rem;"><i class="fas fa-newspaper"></i></div>'}
+                                    ${post.image_url ? `<img class="article-stage-image" src="${escapeHtml(post.image_url)}" alt="${escapeHtml(post.title)}">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#dfeefb,#ecf7ff);color:#0e5fad;font-size:4rem;"><i class="fas fa-newspaper"></i></div>'}
                                 </div>
                             </div>
                         </div>
